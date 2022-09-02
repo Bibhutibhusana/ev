@@ -1,0 +1,64 @@
+<div
+  class="container-fluid text-center"
+  style="background-color: #81b079; height: 100%"
+>
+  <div class="col-md-6 col-sm-12 col-lg-4 mx-auto">
+    <mat-card class="w-100 shadow-lg">
+      <div class="text-center">
+        <img
+          src="./assets/images/odish-govt-logo.jpg"
+          alt="Odisha Govt. Logo"
+          style="width: 60px; height: 70px"
+        />
+        <br />
+        <h4>Electric Vehicle Cell (EVC)</h4>
+        Government of Odisha
+      </div>
+      <hr />
+
+      <form class="p-4">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>User Name</mat-label>
+          <input matInput placeholder="" required [formControl]="username" />
+        </mat-form-field>
+
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            required
+            [type]="hide ? 'password' : 'text'"
+            [formControl]="password"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+          <mat-error></mat-error>
+        </mat-form-field>
+        <p *ngIf="errMsg" style="color: red; font-weight: 200; font-size: 12px">
+          Username or password doesn't match.
+        </p>
+
+        <button
+          mat-raised-button
+          type="submit"
+          style="
+            border-radius: 20px;
+            background-color: rgb(27, 145, 86);
+            color: white;
+          "
+          class="w-100"
+          (click)="onSignIn()"
+        >
+          SIGN IN
+        </button>
+      </form>
+    </mat-card>
+  </div>
+</div>

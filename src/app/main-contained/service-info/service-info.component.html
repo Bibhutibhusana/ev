@@ -1,0 +1,225 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 mt-2">
+      <mat-card style="height: 350px">
+        <div class="custom-card-header how-to-apply">
+          <img
+            src="./assets/images/check-list.svg"
+            alt=""
+            height="50px"
+            width="50px"
+            class="mb-3 mt-1"
+          />
+
+          <mat-card-title>How to Apply</mat-card-title>
+        </div>
+        <mat-card-content class="mt-2">
+          <ul style="color: rgb(27, 145, 86)">
+            <li class="p-2">
+              <a
+                href="./assets/1358-%20C&%20T%20(Com.)%20Dept..pdf"
+                target="_blank"
+                class="linkStyleHow"
+              >
+                Odisha Electric Vehicle Policy 2021</a
+              >
+              <img src="assets/images/pdf.svg" width="16" height="16" />
+            </li>
+            <li class="p-2">
+              <a
+                (click)="openDealerDialog(dialogDealerList)"
+                class="linkStyleHow"
+                style="cursor: pointer"
+              >
+                Odisha Electric Vehicle Dealer List</a
+              >
+            </li>
+            <li class="p-2">
+              <a
+                href="./assets/UserManual.pdf"
+                target="_blank"
+                class="linkStyleHow"
+              >
+                'User Manual' (Read before applying)</a
+              >
+              <img src="assets/images/pdf.svg" width="16" height="16" />
+            </li>
+
+            <!-- <li class="p-2">Go through the standard operating procedure.</li>
+            <li class="p-2">
+              'User Manual' for online application for electric vehicle subsidy,
+              please read carefully before applying.
+            </li> -->
+          </ul>
+        </mat-card-content>
+
+        <mat-card-footer>
+          <div class="text-center footer-mob-screen">
+            <button
+              mat-raised-button
+              class="mb-lg-4 howToBtn"
+              (click)="openDialog(dialogDocReq)"
+            >
+              Required Documents
+            </button>
+          </div>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+    <div class="col-md-4 mt-2">
+      <mat-card style="height: 350px">
+        <div class="custom-card-header apply-online">
+          <img
+            src="./assets/images/home-office.svg"
+            alt=""
+            height="50px"
+            width="50px"
+            class="mb-3 mt-1"
+          />
+
+          <mat-card-title>Apply Online</mat-card-title>
+        </div>
+        <mat-card-content class="mt-2">
+          <ul style="color: #4036ff">
+            <li class="p-2">
+              <a (click)="openDialog(dialogDocReq)" class="applyon">
+                Documents required during application for Electric Vehicle(EV)
+                subsidy.</a
+              >
+            </li>
+            <!-- <li class="p-2">OTP & other communication will be through SMS.</li>
+            <li class="p-2">
+              Please provide your registered mobile number linked with your RC.
+            </li> -->
+          </ul>
+        </mat-card-content>
+        <mat-card-footer>
+          <div class="text-center footer-mob-screen">
+            <button
+              mat-raised-button
+              class="mb-lg-4 regBtn"
+              routerLink="/dashboard/register"
+            >
+              Register / Apply
+            </button>
+          </div>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+    <div class="col-md-4 mt-2">
+      <mat-card style="height: 350px">
+        <div class="custom-card-header application-status">
+          <img
+            src="./assets/images/slider.svg"
+            alt=""
+            height="50px"
+            width="50px"
+            class="mb-3 mt-1"
+          />
+          <mat-card-title>Application Status</mat-card-title>
+        </div>
+        <mat-card-content class="mt-2">
+          <ul style="color: #3a0901">
+            <li class="p-2">
+              Here you can know the status of your application at each stage of
+              its processing.
+            </li>
+            <li class="p-2">
+              Application Number, Registration Number and last five digits of
+              Chassis Number are the keys to track your application status.
+            </li>
+          </ul>
+        </mat-card-content>
+        <mat-card-footer class="text-center">
+          <div class="text-center footer-mob-screen">
+            <button
+              mat-raised-button
+              class="mb-lg-4 applStBtn"
+              routerLink="/dashboard/status"
+            >
+              Application Status
+            </button>
+          </div>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="mt-1 text-center">
+    <img
+      class="img-mob-screen"
+      src="./assets/images/EV-Footer.jpg"
+      alt=""
+      height="200px"
+      width="65%"
+    />
+  </div>
+</div>
+
+<ng-template #dialogDocReq style="border-radius: 5px !important">
+  <div class="container">
+    <p class="text-center" style="font-weight: 500">Documents Required</p>
+    <hr />
+  </div>
+
+  <div mat-dialog-content>
+    <ul>
+      <li>Scan copy of first page of Vehicle Owner's Bank Passbook.</li>
+      <li>
+        OTP & other communication will be sent SMS to your Mobile Number linked
+        with your RC.
+      </li>
+    </ul>
+  </div>
+  <div class="text-center">
+    <button mat-stroked-button color="primary" (click)="closeDialog()">
+      Ok
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #dialogDealerList>
+  <div class="custom-spinner p-3" *ngIf="loaderService.isLoading | async">
+    Loading
+    <img src="assets/images/CVyf.gif" alt="Loading" height="40" width="60" />
+  </div>
+  <div class="container">
+    <p class="text-center" style="font-weight: 500">
+      Odisha Electric Vehicle Dealer List
+    </p>
+    <hr />
+  </div>
+
+  <div mat-dialog-content class="">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef>No.</th>
+        <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="dealerCd">
+        <th mat-header-cell *matHeaderCellDef>Dealer Code</th>
+        <td mat-cell *matCellDef="let element">{{ element.dealerCd }}</td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="dealerName">
+        <th mat-header-cell *matHeaderCellDef>Dealer Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.dealerName }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+  <div class="text-center mt-2">
+    <button mat-raised-button color="primary" (click)="closeDealerDialog()">
+      Ok
+    </button>
+  </div>
+</ng-template>

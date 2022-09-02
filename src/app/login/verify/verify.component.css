@@ -1,0 +1,19 @@
+table {
+  width: 100%;
+}
+td {
+  text-align: start !important;
+}
+th {
+  background-color: #81b079 !important;
+  color: white !important;
+}
+
+.mat-cell {
+  border: 1px solid #81b079 !important;
+  padding-left: 10px !important;
+}
+.mat-header-cell {
+  border-left: 1px solid rgb(165, 165, 165) !important;
+  padding-left: 10px !important;
+}

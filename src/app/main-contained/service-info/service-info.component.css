@@ -1,0 +1,106 @@
+.mat-card {
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px !important;
+}
+.custom-card-header {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 10px 10px 0 0;
+  color: white;
+  text-align: center !important;
+}
+.mat-card-content {
+  flex-grow: 1;
+  overflow: auto;
+}
+.how-to-apply {
+  background: rgb(27, 145, 86);
+}
+
+.apply-online {
+  background: #4036ff;
+}
+.application-status {
+  background: #863a2d;
+}
+.regBtn {
+  background: #4036ff;
+  color: white;
+}
+.regBtn:hover {
+  opacity: 0.9;
+}
+.applStBtn {
+  background: #863a2d;
+  color: white;
+}
+.applStBtn:hover {
+  opacity: 0.9;
+}
+.howToBtn {
+  background: rgb(27, 145, 86);
+  color: white;
+}
+.howToBtn:hover {
+  opacity: 0.9;
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+}
+
+.linkStyleHow {
+  color: rgb(2, 49, 25);
+}
+.linkStyleHow:hover {
+  color: dodgerblue;
+}
+table {
+  width: 100%;
+  /*text-align: center;*/
+}
+
+.mat-column-position {
+  border-right: 1px solid dodgerblue;
+}
+.mat-column-dealerCd {
+  border-right: 1px solid dodgerblue;
+  padding-left: 15px;
+}
+.mat-column-dealerName {
+  padding-left: 15px;
+}
+.applyon {
+  color: #080547;
+  cursor: pointer;
+}
+.applyon:hover {
+  color: dodgerblue;
+}
+.custom-spinner {
+  /*background: burlywood;*/
+  position: absolute;
+  border: 1px solid dodgerblue;
+  border-radius: 4px;
+  left: 45%;
+  top: 45%;
+  font-size: 20px;
+  z-index: 1;
+
+  filter: opacity(150%);
+}
+::ng-deep.mat-dialog-container {
+  border-radius: 10px !important;
+}
+
+@media (max-width: 750px) {
+  .footer-mob-screen {
+      margin-bottom: 25px;
+  }
+  .img-mob-screen{
+    width: 80%;
+    height: 75px;
+  }
+}

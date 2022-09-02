@@ -1,0 +1,23 @@
+.custom-input-field {
+  font-size: 13px;
+}
+table {
+  width: 100%;
+}
+
+td {
+  text-align: start !important;
+}
+th {
+  background-color: dodgerblue !important;
+  color: white !important;
+}
+
+.mat-cell {
+  border-left: 1px solid black !important;
+  padding-left: 10px !important;
+}
+.mat-header-cell {
+  border-left: 1px solid black !important;
+  padding-left: 10px !important;
+}

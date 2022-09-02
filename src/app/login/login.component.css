@@ -1,0 +1,19 @@
+div.mat-card{
+  display: block;
+  text-align: center;
+}
+.mat-card{
+  display: inline-block;
+  text-align: center;
+  margin-top: 30%;
+  border-radius: 15px;
+}
+
+mat-form-field.mat-form-field {
+  font-size: 14px;
+}
+
+::ng-deep .ng-untouched .mat-form-field-appearance-outline .mat-form-field-outline{
+  color: rgb(27, 145, 86);
+  opacity: 0.8;
+}

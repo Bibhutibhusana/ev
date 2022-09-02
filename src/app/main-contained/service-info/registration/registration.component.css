@@ -1,0 +1,28 @@
+hr{
+  margin: 0.3rem 0;
+}
+.custom-input-field{
+  font-size: 13px;
+}
+
+.common-text{
+  /*color: dodgerblue !important;*/
+}
+::ng-deep.mat-snack-bar-container{
+  background:rgba(215,31,5,0.58) !important;
+  color: white !important;
+  /*padding: 25px !important;*/
+  max-width: none !important;
+  /*margin-left: 63%;*/
+}
+::ng-deep.mat-simple-snackbar-action{
+  color: black !important;
+
+}
+::ng-deep.mat-simple-snackbar-action button{
+  background: rgba(226,38,23,0.84) !important;
+  color: white !important;
+}
+::ng-deep.cdk-overlay-pane{
+  /*width: 100% !important;*/
+}

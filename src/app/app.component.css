@@ -1,0 +1,26 @@
+.custom-spinner{
+  background: white;
+  position: absolute;
+  color: black;
+  border: 1px solid dodgerblue;
+  border-radius: 4px;
+  left: 45%;
+  top: 50%;
+  font-size: 20px;
+  z-index: 100;
+  opacity: 1;
+
+  filter: opacity(150%);
+
+}
+.main-loader-div{
+  /*background: black;*/
+  /*color: white;*/
+  height: 100%;
+  width: 100%;
+  /*opacity: 0.7;*/
+  z-index: 5;
+  position: fixed;
+  top: 0;
+  text-align: center;
+}

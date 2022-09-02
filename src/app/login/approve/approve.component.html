@@ -1,0 +1,751 @@
+<div class="container" style="background: white">
+  <!-- <div class="text-center">
+    <img
+      src="./assets/images/odish-govt-logo.jpg"
+      alt="Odisha Govt. Logo"
+      style="width: 60px; height: 70px"
+    />
+  </div> -->
+  <div class="row text-center">
+    <div class="col-md-4 my-auto">
+      <div class="row">
+        <div class="col-md-3 text-end my-auto">
+          <img
+            src="./assets/images/odish-govt-logo.jpg"
+            alt="Odisha Govt. Logo"
+            style="width: 60px; height: 70px"
+          />
+        </div>
+
+        <div class="col-md-9 text-start my-auto p-0">
+          <h4>Government of Odisha</h4>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 my-auto mt-3">
+      <h4 style="color: rgb(4, 72, 139)">Electric Vehicle Cell (EVC)</h4>
+      <p>(Under Odisha Electric Vehicle Policy-2021)</p>
+    </div>
+    <div class="col-md-4 my-auto text-center">
+      <h4>State Transport Authority, Odisha</h4>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid" style="background: #81b079; color: white">
+  <div class="container">
+    <nav class="navbar">
+      <div class="col-md-6">
+        <!--          <button mat-stroked-button style="border: 1px solid white; border-radius: 5px;"-->
+        <!--                  routerLink="/dashboard/service-info" routerLinkActive="active">Electric Vehicle Service Information</button>&nbsp;-->
+        <!--          <button mat-stroked-button style="border: 1px solid white;border-radius: 5px;"-->
+        <!--                  routerLink="/dashboard/status" routerLinkActive="active">Application Status</button>-->
+      </div>
+      <div class="col-md-6">
+        <div class="d-flex justify-content-end">
+          <div class="my-auto p-1">
+            <img
+              src="./assets/images/account.svg"
+              alt="Account"
+              height="20"
+              width="20"
+            />
+            {{ username }}
+          </div>
+          <div class="my-auto p-1">
+            <button mat-raised-button color="warn" routerLink="/login">
+              SIGN OUT <mat-icon>chevron_right</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
+<div class="container mt-2">
+  <mat-tab-group>
+    <mat-tab label="Pending List for Approval">
+      <mat-card>
+        <!-- <h4>Approve</h4> -->
+        <hr class="mb-2" />
+
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="Sl No.">
+              <th mat-header-cell *matHeaderCellDef>Sl No.</th>
+              <td mat-cell *matCellDef="let element; let i = index">
+                {{ i + 1 }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Application Number">
+              <th mat-header-cell *matHeaderCellDef>Application Number</th>
+              <td mat-cell *matCellDef="let element">{{ element.appl_no }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="Registration Number">
+              <th mat-header-cell *matHeaderCellDef>Registration Number</th>
+              <td mat-cell *matCellDef="let element">{{ element.regn_no }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="Owner Name">
+              <th mat-header-cell *matHeaderCellDef>Owner Name</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.owner_name }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Account Number">
+              <th mat-header-cell *matHeaderCellDef>Account Number</th>
+              <td mat-cell *matCellDef="let element">{{ element.acc_no }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="Branch Name">
+              <th mat-header-cell *matHeaderCellDef>Branch Name</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.branch_name }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="Fuel">
+              <th mat-header-cell *matHeaderCellDef>Fuel</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.fuel }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="Vehicle Class">
+              <th mat-header-cell *matHeaderCellDef>Vehicle Class</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.v_class }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="Purchase Date">
+              <th mat-header-cell *matHeaderCellDef>Purchase Date</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.purchase_dt }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Passbook Image">
+              <th mat-header-cell *matHeaderCellDef>Passbook Image</th>
+              <td mat-cell *matCellDef="let element">
+                <a
+                  (click)="getImage(element.passbook_img, passbook_image)"
+                  style="
+                    text-decoration: underline;
+                    color: dodgerblue;
+                    cursor: pointer;
+                  "
+                  >Click Here</a
+                >
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="Subsidy Amount">
+              <th mat-header-cell *matHeaderCellDef>Subsidy Amount</th>
+              <td mat-cell *matCellDef="let element">
+                {{ getSubsidyAmount(element) }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Action">
+              <th mat-header-cell *matHeaderCellDef>Action</th>
+              <td mat-cell *matCellDef="let element">
+                <button
+                  *ngIf="element.approval == null"
+                  mat-raised-button
+                  (click)="approveButton(element, confirm)"
+                  style="background-color: dodgerblue; color: white"
+                >
+                  Approve
+                </button>
+                <button
+                  *ngIf="element.approval == 'y'"
+                  mat-raised-button
+                  style="background-color: green; color: white"
+                >
+                  <mat-icon>check_circle</mat-icon>
+                  Approved
+                </button>
+                <button
+                  *ngIf="element.approval == 'rejected' && rejectFinalBool"
+                  mat-raised-button
+                  color="warn"
+                >
+                  <mat-icon>check_circle</mat-icon>
+                  Rejected
+                </button>
+                <button
+                  *ngIf="element.approval == 'rev' && !rejectFinalBool"
+                  mat-raised-button
+                  color="warn"
+                >
+                  <mat-icon>remove_circle</mat-icon>
+                  Reverted
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+
+          <mat-paginator
+            [pageSizeOptions]="[5, 10, 20]"
+            showFirstLastButtons
+            aria-label="Select page of periodic elements"
+          >
+          </mat-paginator>
+        </div>
+      </mat-card>
+      <ng-template #passbook_image>
+        <div class="text-center">
+          <h3>Passbook Image</h3>
+          <hr />
+          <img [src]="passbook" alt="" />
+          <br />
+          <button
+            mat-stroked-button
+            color="primary"
+            class="mt-4"
+            (click)="closeDialog()"
+          >
+            Close
+          </button>
+        </div>
+      </ng-template>
+      <ng-template #confirm>
+        <div class="text-center">
+          <div class="text-start">
+            <div class="text-center">
+              <p
+                style="
+                  border: 1px solid dodgerblue;
+                  color: white;
+                  background-color: dodgerblue;
+                  border-radius: 5px;
+                "
+              >
+                Instructions for Approval
+              </p>
+            </div>
+            <ul>
+              <li class="p-1">
+                Name of the applicant should match with the name in the Bank
+                Passbook
+              </li>
+              <li class="p-1">Fuel should be ELECTRIC</li>
+              <li class="p-1">
+                Purchase Date should be on or after 1st September 2021
+              </li>
+              <li class="p-1">
+                Verify all the required information given by the applicant
+              </li>
+            </ul>
+          </div>
+          <hr />
+
+          <p *ngIf="rejectBool" style="font-size: 18px">
+            Are you sure to approve?
+          </p>
+
+          <div *ngIf="!rejectBool || rejectFinalBool">
+            <p>Write down the reason for rejection</p>
+
+            <mat-form-field appearance="fill" style="width: 70%">
+              <mat-label>Select Reason</mat-label>
+              <mat-select
+                [(ngModel)]="reason"
+                name="reason"
+                (valueChange)="onSelect($event)"
+              >
+                <mat-option *ngFor="let reason of reasons" [value]="reason">
+                  {{ reason }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <textarea
+              *ngIf="reason == 'Other'"
+              [(ngModel)]="otherReason"
+              name="otherReason"
+            >
+            </textarea>
+          </div>
+
+          <br />
+
+          <div class="col-md-6 mx-auto">
+            <div class="row">
+              <div class="col-md-3">
+                <button
+                  *ngIf="rejectBool"
+                  mat-raised-button
+                  class="mt-2"
+                  style="background-color: green; color: white"
+                  (click)="confirmButton()"
+                >
+                  Confirm
+                </button>
+              </div>
+              <div class="col-md-3">
+                <button
+                  mat-raised-button
+                  class="mt-2"
+                  style="background-color: orange; color: white"
+                  *ngIf="rejectBool"
+                  (click)="onRevert()"
+                >
+                  Revert
+                </button>
+              </div>
+              <div class="col-md-3">
+                <button
+                  mat-raised-button
+                  style="background-color: red; color: white"
+                  class="mt-2"
+                  *ngIf="rejectBool"
+                  (click)="onReject()"
+                >
+                  Reject
+                </button>
+                <button
+                  mat-raised-button
+                  style="background-color: red; color: white"
+                  class="mt-2"
+                  *ngIf="rejectFinalBool"
+                  (click)="onYesNo(dialogYesNo)"
+                >
+                  Reject
+                </button>
+                <button
+                  *ngIf="!rejectBool && !rejectFinalBool"
+                  mat-raised-button
+                  class="mt-2"
+                  style="background-color: red; color: white"
+                  (click)="confirmButton()"
+                >
+                  Revert
+                </button>
+              </div>
+              <div class="col-md-3">
+                <button
+                  mat-raised-button
+                  color="primary"
+                  class="mt-2"
+                  (click)="closeDialog()"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template #dialogYesNo>
+        <div class="text-center">
+          <h3>Confirm</h3>
+          <hr />
+          <p>Are you sure?</p>
+
+          <div class="row">
+            <div class="col-md-6">
+              <button mat-stroked-button (click)="closeDialog()">No</button>
+            </div>
+            <div class="col-md-6">
+              <button
+                mat-stroked-button
+                color="primary"
+                (click)="rejectButton()"
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </mat-tab>
+
+    <!-- <mat-tab label="Sanction Order">
+      <mat-card>
+        <div class="col-md-6 mx-auto">
+          <div class="row">
+            <div class="col-md-8 my-auto">
+              <mat-form-field
+                class="w-100 custom-input-field h-10"
+                appearance="outline"
+              >
+                <mat-label>Application Number</mat-label>
+                <input
+                  matInput
+                  oninput="this.value = this.value.toUpperCase()"
+                  [formControl]="appl_no"
+                  name="appl_no"
+                />
+              </mat-form-field>
+            </div>
+            <div class="col-md-4 my-auto">
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="onSearchForSanctionOrder()"
+              >
+                <mat-icon>search</mat-icon>
+                Search
+              </button>
+            </div>
+          </div>
+          <div>
+            <div *ngIf="sanctionOrderBool">
+              <mat-card>
+                <div id="sectionToPrint">
+                  <div class="text-center">
+                    <img
+                      src="./assets/images/odish-govt-logo.jpg"
+                      alt="Odisha Govt. Logo"
+                      style="width: 60px; height: 70px"
+                    />
+                    <h5>RTO, {{ rtoName }}</h5>
+                    <h4>SANCTION ORDER</h4>
+                    <p>Under Electric Vehicle Policy 2021</p>
+                  </div>
+                  <div class="d-flex justify-content-between mb-lg-4">
+                    <div class="">
+                      <h6>Application No. {{ appl_no.value }}</h6>
+                    </div>
+                    <div></div>
+                    <div>Date: {{ sanctionOrder.approve_dt }}</div>
+                  </div>
+                  <p class="mb-lg-5">
+                    Sanction of
+                    <b>
+                      Rs. {{ sanctionOrder.sub_amnt }} /- ({{
+                        sanctionOrder.inWords
+                      }}) </b
+                    >is hereby accord to inform
+                    <b> Mr./Ms. {{ sanctionOrder.owner_name }} </b>for his
+                    vehicle number <b>{{ sanctionOrder.regn_no }}</b> for
+                    subsidy under Odisha EV Policy 2021 with cheque no./RTGS
+                    challan no. <b> {{ sanctionOrder.cheque_no }} </b>date:
+                    <b> {{ sanctionOrder.approve_dt }}</b>
+                  </p>
+                  <div
+                    class="d-flex justify-content-between"
+                    style="margin-top: 50px"
+                  >
+                    <div>Signature of Applicant</div>
+                    <div></div>
+                    <div><p>Signature of RTO</p></div>
+                  </div>
+                </div>
+              </mat-card>
+              <div class="text-center mt-2">
+                <button
+                  mat-raised-button
+                  color="primary"
+                  printSectionId="sectionToPrint"
+                  ngxPrint
+                  [useExistingCss]="true"
+                  printTitle="{{ sanctionOrder.owner_name }}"
+                  (click)="onPrint()"
+                >
+                  <mat-icon>print</mat-icon> Print
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </mat-tab> -->
+
+    <mat-tab label="Final Approval List">
+      <mat-card>
+        <div class="col-md-8 mx-auto">
+          <div class="row mx-auto">
+            <div class="col-md-4 my-auto">
+              <mat-form-field appearance="outline">
+                <mat-label>Approval Date</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="frompicker"
+                  [(ngModel)]="fromDate"
+                  #inputPicker="ngModel"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="frompicker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #frompicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <!-- <div class="col-md-4 my-auto">
+              <mat-form-field appearance="outline">
+                <mat-label>To Date</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="topicker"
+                  [(ngModel)]="toDate"
+                  #inputPicker="ngModel"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="topicker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #topicker></mat-datepicker>
+              </mat-form-field>
+            </div> -->
+            <div class="col-md-2 my-auto">
+              <button
+                mat-raised-button
+                style="background-color: dodgerblue; color: white"
+                (click)="onSearch()"
+              >
+                <mat-icon>search</mat-icon>Search
+              </button>
+            </div>
+            <div class="col-md-2 my-auto" *ngIf="!searchBool">
+              <button mat-raised-button color="accent" (click)="exportToPDF()">
+                <mat-icon>cloud_download</mat-icon> &nbsp; Download
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mat-elevation-z8" *ngIf="!searchBool">
+          <div class="text-center">
+            <h5 class="mt-4">Regional Transport Office, {{ rtoName }}</h5>
+            <h5>Electric Vehicle Eligible Applicant List for Subsidy</h5>
+            <!--
+            <button mat-raised-button (click)="exportToPDF()">
+              Download PDF
+            </button> -->
+          </div>
+
+          <hr />
+          <table mat-table [dataSource]="finalDataSource">
+            <ng-container matColumnDef="Sl No.">
+              <th mat-header-cell *matHeaderCellDef>Sl No.</th>
+              <td mat-cell *matCellDef="let element; let i = index">
+                {{ i + 1 }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Application Number">
+              <th mat-header-cell *matHeaderCellDef>Application Number</th>
+              <td mat-cell *matCellDef="let element">{{ element.appl_no }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="Registration Number">
+              <th mat-header-cell *matHeaderCellDef>Registration Number</th>
+              <td mat-cell *matCellDef="let element">{{ element.regn_no }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="Owner Name">
+              <th mat-header-cell *matHeaderCellDef>Applicant Name</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.owner_name }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Account Number">
+              <th mat-header-cell *matHeaderCellDef>Bank Account Number</th>
+              <td mat-cell *matCellDef="let element">{{ element.acc_no }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="IFSC Code">
+              <th mat-header-cell *matHeaderCellDef>IFSC Code</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.ifsc_code }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="Bank Name">
+              <th mat-header-cell *matHeaderCellDef>Bank Name</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.bank_name }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="Subsidy Amount">
+              <th mat-header-cell *matHeaderCellDef>Subsidy Amount</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.sub_amnt }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="Contact Number">
+              <th mat-header-cell *matHeaderCellDef>Contact Number</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.mob_no }}
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsFinal"></tr>
+            <tr
+              mat-row
+              *matRowDef="let row; columns: displayedColumnsFinal"
+            ></tr>
+          </table>
+
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+          </mat-paginator>
+        </div>
+      </mat-card>
+    </mat-tab>
+    <mat-tab label="Disbursement List">
+      <mat-card>
+        <h4>Pending List for Disbursement</h4>
+
+        <div class="col-md-8 mx-auto">
+          <div class="row mx-auto">
+            <div class="col-md-4 my-auto">
+              <mat-form-field appearance="outline">
+                <mat-label>Approval Date</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="frompicker2"
+                  [(ngModel)]="approvalDate"
+                  #inputPicker="ngModel"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="frompicker2"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #frompicker2></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <!-- <div class="col-md-4 my-auto">
+              <mat-form-field appearance="outline">
+                <mat-label>To Date</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="topicker"
+                  [(ngModel)]="toDate"
+                  #inputPicker="ngModel"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="topicker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #topicker></mat-datepicker>
+              </mat-form-field>
+            </div> -->
+            <div class="col-md-2 my-auto">
+              <button
+                mat-raised-button
+                style="background-color: dodgerblue; color: white"
+                (click)="onSearchForDisbursement()"
+              >
+                <mat-icon>search</mat-icon>Search
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="disburseDataSource">
+            <ng-container matColumnDef="Sl No.">
+              <th mat-header-cell *matHeaderCellDef>Sl No.</th>
+              <td mat-cell *matCellDef="let element; let i = index">
+                {{ i + 1 }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Application Number">
+              <th mat-header-cell *matHeaderCellDef>Application Number</th>
+              <td mat-cell *matCellDef="let element">{{ element.appl_no }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="Registration Number">
+              <th mat-header-cell *matHeaderCellDef>Registration Number</th>
+              <td mat-cell *matCellDef="let element">{{ element.regn_no }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="Owner Name">
+              <th mat-header-cell *matHeaderCellDef>Applicant Name</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.owner_name }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Account Number">
+              <th mat-header-cell *matHeaderCellDef>Bank Account Number</th>
+              <td mat-cell *matCellDef="let element">{{ element.acc_no }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="IFSC Code">
+              <th mat-header-cell *matHeaderCellDef>IFSC Code</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.ifsc_code }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="Bank Name">
+              <th mat-header-cell *matHeaderCellDef>Bank Name</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.bank_name }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="Contact Number">
+              <th mat-header-cell *matHeaderCellDef>Contact Number</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.mob_no }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Select">
+              <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox
+                  #s
+                  (change)="$event ? masterToggle() : null"
+                  [checked]="selection.hasValue() && isAllSelected()"
+                  [indeterminate]="selection.hasValue() && !isAllSelected()"
+                  color="primary"
+                  (click)="onAllSelect(s)"
+                >
+                </mat-checkbox>
+                Select All
+              </th>
+              <td mat-cell *matCellDef="let row">
+                <mat-checkbox
+                  #c
+                  (click)="onCheck($event, row, c)"
+                  (change)="$event ? selection.toggle(row) : null"
+                  [checked]="selection.isSelected(row)"
+                  color="primary"
+                >
+                </mat-checkbox>
+                <!-- <label>Disbursed</label> -->
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="disbusereColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: disbusereColumns"></tr>
+          </table>
+
+          <mat-paginator
+            [pageSizeOptions]="[5, 10, 20]"
+            showFirstLastButtons
+            aria-label="Select page of periodic elements"
+          >
+          </mat-paginator>
+        </div>
+        <div class="text-center mt-3">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="onSubmitDisbursement(dialogUpdate)"
+          >
+            Submit
+          </button>
+        </div>
+      </mat-card>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+<ng-template #dialogUpdate>
+  <div class="text-center">
+    <h3>Success</h3>
+    <hr />
+    <p>Disbursement status updated Successfully.</p>
+
+    <div class="text-center">
+      <button mat-stroked-button (click)="closeDialog()">OK</button>
+    </div>
+  </div>
+</ng-template>

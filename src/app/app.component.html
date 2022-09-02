@@ -1,0 +1,15 @@
+
+  <router-outlet></router-outlet>
+
+  <div class="main-loader-div"  *ngIf="loaderService.isLoading | async">
+    <div class="custom-spinner p-3"   >
+      Loading
+      <img src="assets/images/CVyf.gif" alt="Loading"
+           height="40" width="60" >
+    </div>
+  </div>
+
+
+
+
+
