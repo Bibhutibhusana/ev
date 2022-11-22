@@ -50,11 +50,10 @@
                     >It must contain 5 characters.</mat-error
                   >
                   <mat-hint align="end"
-                    >{{ input.value?.length || 0 }}/5</mat-hint
+                    >{{ input.value.length || 0 }}/5</mat-hint
                   >
                 </mat-form-field>
               </div>
-
               <div class="col-md-4 text-center">
                 <button
                   mat-raised-button
@@ -77,14 +76,12 @@
             </div>
             <div class="row text-center" *ngIf="sendOtpFirst">
               <div class="col-md-4"></div>
-
               <div class="col-md-4 mx-auto">
-                <mat-label>{{ otp }}</mat-label>
-                <!--                <p>{{transform(time)}}</p>-->
+              <mat-label>{{ otp }}</mat-label>
+                <!--<p>{{transform(time)}}</p>-->
                 <mat-form-field
                   class="w-100 custom-input-field"
-                  appearance="outline"
-                >
+                  appearance="outline"  >
                   <mat-label>Enter OTP</mat-label>
 
                   <input
@@ -171,7 +168,7 @@
                   >
                   </ngx-skeleton-loader>
                   <mat-label class="common-text" *ngIf="!skeletonFlag">
-                    {{ vehicleDetails.ownerName }}
+                   {{ vehicleDetails.ownerName }}
                   </mat-label>
                 </div>
               </div>
@@ -600,16 +597,14 @@
                   formControlName="ifscCode"
                   name="ifscCode"
                   oninput="this.value = this.value.toUpperCase()"
+                  (keyup)="checkIFSCCode(dialogCommon)"
                 />
               </mat-form-field>
             </div>
           </div>
 
           <div *ngIf="nameCheck">
-            <p>
-              Upload front page of your bank passbook/Cancelled cheque
-              containing your name
-            </p>
+            <p>Upload front page of your bank passbook containing your name</p>
 
             <button mat-raised-button color="accent" (click)="upbt.click()">
               <svg
@@ -633,18 +628,18 @@
               hidden
               #upbt
               id="file"
-              (change)="upload($event)"
+              (change)="upload($event)" accept="image/jpg, image/jpeg, image/png"
             />&nbsp;
             <mat-label>{{ uploadedFile }}</mat-label>
             <br />
             <mat-hint style="color: red; font-weight: bold; font-size: 12px"
-              >Upload file size should be less than 200KB (.pdf,.jpg format
-              only)
+              >Upload file size should be less than 200KB (only .jpg, .jpeg and
+              .png format only)
             </mat-hint>
           </div>
         </mat-card>
 
-        <div class="mt-3" *ngIf="bankCheck && nameCheck">
+        <div class="mt-3" *ngIf="bankCheck && nameCheck && ifscCheck">
           <mat-checkbox
             required
             color="primary"

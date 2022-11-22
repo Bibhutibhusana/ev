@@ -20,9 +20,9 @@ export class ApprovalService{
     return this.http.post(`${this.baseURL}/approve`,off_cd);
   }
 
-  updateApprovalStatus(regn: any,username: any,reason: any,verification: any,cheq: any, subamnt: any){
+  updateApprovalStatus(regn: any,username: any,reason: any,verification: any,cheq: any, subamnt: any,date: Date){
 
-    return this.http.post(`${this.baseURL}/updateStatusApproval`, {"regn":regn,"user":username,"reason":reason,"verify":verification,"cheqNo":cheq,"subAmnt":subamnt});
+    return this.http.post(`${this.baseURL}/updateStatusApproval`, {"regn":regn,"user":username,"reason":reason,"verify":verification,"cheqNo":cheq,"subAmnt":subamnt,"date":date});
 
   }
 
@@ -120,6 +120,24 @@ export class ApprovalService{
 
 
     return this.http.post(`${this.baseURL}/sendRevertedMsg`,{"applNo":applNo,"rto":rto,"mob":mob,"regn":regn,"reason":reason});
+  }
+  getTotalApplied(fromdate: Date,todate: Date,off_cd: any,type: any){
+
+
+    return this.http.post(`${this.baseURL}/totalApplied`,{"fromdate":fromdate,"todate":todate,"off_cd":off_cd,"type":type});
+  }
+
+  getApplicationStatus(regn: string){
+    return this.http.post(`${this.baseURL}/applicationStatus`,regn);
+  }
+
+  insertToRevertStatus(regn: any,applNo: any, verification: any,approval: any,opDt: Date,reason: any,verifyUserId: any,approveUserId: any, insertDt: Date){
+    return this.http.post(`${this.baseURL}/insertToRevertStatus`,{"regn":regn,"applNo":applNo,"verification": verification,"approval":approval,"opDt":opDt,"reason":reason,"verfiyUserId":verifyUserId,
+  "approveUserId":approveUserId,"insertDt":insertDt});
+  }
+
+  findByErrCode(err_cd: any) {
+    return this.http.post(`${this.baseURL}/findbycode`, err_cd);
   }
 
 }

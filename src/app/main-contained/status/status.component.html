@@ -1,132 +1,315 @@
-<div class="container text-center">
-  <mat-card class="mt-3">
-    <form>
+<div class="container">
+  <mat-tab-group>
+    <mat-tab label="Application Status">
+      <div class="container text-center">
+        <mat-card class="mt-3">
+          <form>
+            <div class="text-center">
+              <h5>Enter the below details to know your application status</h5>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-md-3 my-auto">
+                <mat-form-field
+                  class="w-100 custom-input-field"
+                  appearance="outline"
+                >
+                  <mat-label>Application Number</mat-label>
+                  <input
+                    matInput
+                    oninput="this.value = this.value.toUpperCase()"
+                    [formControl]="appl_no"
+                    name="appl_no"
+                  />
+                  <mat-error *ngIf="regn_no.invalid"
+                    >Please Enter a valid Application Number.</mat-error
+                  >
+                </mat-form-field>
+              </div>
+              <div class="col-md-3 my-auto">
+                <mat-form-field
+                  class="w-100 custom-input-field"
+                  appearance="outline"
+                >
+                  <mat-label>Vehicle Number</mat-label>
+                  <input
+                    matInput
+                    maxlength="10"
+                    minlength="9"
+                    oninput="this.value = this.value.toUpperCase()"
+                    [formControl]="regn_no"
+                    name="regn_no"
+                  />
+                  <mat-error *ngIf="regn_no.invalid"
+                    >Please Enter a valid Vehicle Number.</mat-error
+                  >
+                </mat-form-field>
+              </div>
+              <div class="col-md-3 my-auto">
+                <mat-form-field
+                  class="w-100 h-10 custom-input-field"
+                  appearance="outline"
+                >
+                  <mat-label>Chassis Number(Last 5 digits)</mat-label>
+                  <input
+                    matInput
+                    #input
+                    [formControl]="chasi_no"
+                    maxlength="5"
+                    minlength="5"
+                    name="chasi_no"
+                    oninput="this.value = this.value.toUpperCase()"
+                    (keyup)="onChassisEnter()"
+                  />
+                  <mat-error *ngIf="chasi_no.invalid"
+                    >It must contain 5 characters.</mat-error
+                  >
+                  <mat-hint align="end"
+                    >{{ input.value?.length || 0 }}/5</mat-hint
+                  >
+                </mat-form-field>
+              </div>
+              <div class="col-md-3 mt-2">
+                <button
+                  mat-raised-button
+                  color="primary"
+                  class="w-50"
+                  [disabled]="!chasiFlag"
+                  (click)="onSubmit()"
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
+          </form>
+        </mat-card>
+
+        <mat-card class="mt-3" *ngIf="statusTableFlag">
+          <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">
+              <ng-container matColumnDef="Application Number">
+                <th mat-header-cell *matHeaderCellDef>Application Number</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.appl_no }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Registration Number">
+                <th mat-header-cell *matHeaderCellDef>Registration Number</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.regn_no }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Owner Name">
+                <th mat-header-cell *matHeaderCellDef>Owner Name</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.owner_name }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Bank Account Number">
+                <th mat-header-cell *matHeaderCellDef>Bank Account Number</th>
+                <td mat-cell *matCellDef="let element">{{ element.acc_no }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="Application Status">
+                <th mat-header-cell *matHeaderCellDef>Application Status</th>
+                <td
+                  mat-cell
+                  *matCellDef="let element"
+                  [ngStyle]="{
+                    color:
+                      element.status == 'Payment Done' ? 'green' : 'dodgerblue',
+                    'font-weight': 'bold'
+                  }"
+                  [ngStyle]="{
+                    color:
+                      element.status == 'Reverted in Approval'
+                        ? 'red'
+                        : 'dodgerblue',
+                    'font-weight': 'bold'
+                  }"
+                  [ngStyle]="{
+                    color:
+                      element.status == 'Reverted in Verification'
+                        ? 'red'
+                        : 'dodgerblue',
+                    'font-weight': 'bold'
+                  }"
+                >
+                  {{ element.status }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="Revert Status">
+                <th mat-header-cell *matHeaderCellDef>Revert Reason</th>
+                <td mat-cell *matCellDef="let element">{{ element.reason }}</td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+          </div>
+        </mat-card>
+      </div>
+    </mat-tab>
+    <mat-tab label="Find Application Number">
+      <mat-card>
+        <div class="col-8 mx-auto">
+          <div class="row mt-3">
+            <div class="col-md-4 my-auto">
+              <mat-form-field
+                class="w-100 custom-input-field"
+                appearance="outline"
+              >
+                <mat-label>Vehicle Number</mat-label>
+                <input
+                  matInput
+                  maxlength="10"
+                  minlength="9"
+                  oninput="this.value = this.value.toUpperCase()"
+                  [formControl]="regn_no"
+                  name="regn_no"
+                />
+                <mat-error *ngIf="regn_no.invalid"
+                  >Please Enter a valid Vehicle Number.</mat-error
+                >
+              </mat-form-field>
+            </div>
+            <div class="col-md-4 my-auto">
+              <mat-form-field
+                class="w-100 h-10 custom-input-field"
+                appearance="outline"
+              >
+                <mat-label>Chassis Number(Last 5 digits)</mat-label>
+                <input
+                  matInput
+                  #input
+                  [formControl]="chasi_no"
+                  maxlength="5"
+                  minlength="5"
+                  name="chasi_no"
+                  oninput="this.value = this.value.toUpperCase()"
+                  (keyup)="onChassisEnter()"
+                />
+                <mat-error *ngIf="chasi_no.invalid"
+                  >It must contain 5 characters.</mat-error
+                >
+                <mat-hint align="end"
+                  >{{ input.value?.length || 0 }}/5</mat-hint
+                >
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-4 text-center">
+              <button
+                mat-raised-button
+                class="mt-2 w-50"
+                color="primary"
+                [disabled]="sendOtp"
+                (click)="onSendOtp()"
+              >
+                Send OTP
+              </button>
+
+              <!-- <img [src]="passbookImg" alt="" /> -->
+            </div>
+            <p
+              *ngIf="!chasiFlag"
+              style="font-weight: bold; color: red; font-size: 12px"
+            >
+              Vehicle details provided are not correct. Verify and enter again
+            </p>
+          </div>
+          <div class="row text-center" *ngIf="sendOtpFirst">
+            <div class="col-md-4"></div>
+
+            <div class="col-md-4 mx-auto">
+              <!-- <mat-label>{{ otp }}</mat-label> -->
+              <!--                <p>{{transform(time)}}</p>-->
+              <mat-form-field
+                class="w-100 custom-input-field"
+                appearance="outline"
+              >
+                <mat-label>Enter OTP</mat-label>
+
+                <input
+                  matInput
+                  [formControl]="enteredOtp"
+                  name="enteredOtp"
+                  maxlength="4"
+                  minlength="4"
+                />
+                <!-- <mat-hint
+                style="
+                  color: dodgerblue;
+                  font-size: 12px;
+                  font-weight: bold;
+                "
+                >An OTP is sent to your registered mobile number linked with
+                your RC.</mat-hint
+              > -->
+                <!--                  <mat-error *ngIf="otpNotMatched">OTP mismatched. </mat-error>-->
+              </mat-form-field>
+              <p
+                *ngIf="otpNotMatched"
+                style="font-weight: bold; color: red; font-size: 12px"
+              >
+                OTP mismatched
+              </p>
+              <br />
+              <div class="row mt-2">
+                <div class="col-md-6">
+                  <button
+                    mat-raised-button
+                    color="primary"
+                    class="my-auto w-100"
+                    type="submit"
+                    (click)="onSubmitOtp(dialog)"
+                  >
+                    Submit
+                  </button>
+                </div>
+                <div class="col-md-6">
+                  <button
+                    mat-raised-button
+                    color="warn"
+                    (click)="onSendOtp()"
+                    class="my-auto w-100"
+                  >
+                    Resend OTP
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mt-4">
+              <p style="color: dodgerblue; font-size: 12px; font-weight: bold">
+                An OTP is sent to your registered mobile number linked with your
+                RC.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </mat-card>
+    </mat-tab>
+
+    <ng-template #dialog>
+      <div class="container">
+        <p class="text-center" style="font-weight: 500; color: dodgerblue">
+          Application Number
+        </p>
+        <hr />
+      </div>
+
+      <div mat-dialog-content>
+        <p>Your Application Number is: {{ applNo }}</p>
+      </div>
       <div class="text-center">
-        <h5>Enter the below details to know your application status</h5>
+        <button mat-stroked-button color="primary" (click)="closeDialog()">
+          Ok
+        </button>
       </div>
-      <hr />
-      <div class="row">
-        <div class="col-md-3 my-auto">
-          <mat-form-field class="w-100 custom-input-field" appearance="outline">
-            <mat-label>Application Number</mat-label>
-            <input
-              matInput
-              oninput="this.value = this.value.toUpperCase()"
-              [formControl]="appl_no"
-              name="appl_no"
-            />
-            <mat-error *ngIf="regn_no.invalid"
-              >Please Enter a valid Application Number.</mat-error
-            >
-          </mat-form-field>
-        </div>
-        <div class="col-md-3 my-auto">
-          <mat-form-field class="w-100 custom-input-field" appearance="outline">
-            <mat-label>Vehicle Number</mat-label>
-            <input
-              matInput
-              maxlength="10"
-              minlength="9"
-              oninput="this.value = this.value.toUpperCase()"
-              [formControl]="regn_no"
-              name="regn_no"
-            />
-            <mat-error *ngIf="regn_no.invalid"
-              >Please Enter a valid Vehicle Number.</mat-error
-            >
-          </mat-form-field>
-        </div>
-        <div class="col-md-3 my-auto">
-          <mat-form-field
-            class="w-100 h-10 custom-input-field"
-            appearance="outline"
-          >
-            <mat-label>Chassis Number(Last 5 digits)</mat-label>
-            <input
-              matInput
-              #input
-              [formControl]="chasi_no"
-              maxlength="5"
-              minlength="5"
-              name="chasi_no"
-              oninput="this.value = this.value.toUpperCase()"
-              (keyup)="onChassisEnter()"
-            />
-            <mat-error *ngIf="chasi_no.invalid"
-              >It must contain 5 characters.</mat-error
-            >
-            <mat-hint align="end">{{ input.value?.length || 0 }}/5</mat-hint>
-          </mat-form-field>
-        </div>
-        <div class="col-md-3 mt-2">
-          <button
-            mat-raised-button
-            color="primary"
-            class="w-50"
-            [disabled]="!chasiFlag"
-            (click)="onSubmit()"
-          >
-            Submit
-          </button>
-        </div>
-      </div>
-    </form>
-  </mat-card>
-
-  <mat-card class="mt-3" *ngIf="statusTableFlag">
-    <div class="mat-elevation-z8">
-      <table mat-table [dataSource]="dataSource">
-        <ng-container matColumnDef="Application Number">
-          <th mat-header-cell *matHeaderCellDef>Application Number</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.appl_no }}
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="Registration Number">
-          <th mat-header-cell *matHeaderCellDef>Registration Number</th>
-          <td mat-cell *matCellDef="let element">{{ element.regn_no }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="Owner Name">
-          <th mat-header-cell *matHeaderCellDef>Owner Name</th>
-          <td mat-cell *matCellDef="let element">{{ element.owner_name }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="Bank Account Number">
-          <th mat-header-cell *matHeaderCellDef>Bank Account Number</th>
-          <td mat-cell *matCellDef="let element">{{ element.acc_no }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="Application Status">
-          <th mat-header-cell *matHeaderCellDef>Application Status</th>
-          <td
-            mat-cell
-            *matCellDef="let element"
-            [ngStyle]="{
-              color: element.status == 'Payment Done' ? 'green' : 'dodgerblue',
-              'font-weight': 'bold'
-            }"
-            [ngStyle]="{
-              color:
-                element.status == 'Reverted in Approval' ? 'red' : 'dodgerblue',
-              'font-weight': 'bold'
-            }"
-            [ngStyle]="{
-              color:
-                element.status == 'Reverted in Verification'
-                  ? 'red'
-                  : 'dodgerblue',
-              'font-weight': 'bold'
-            }"
-          >
-            {{ element.status }}
-          </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      </table>
-    </div>
-  </mat-card>
+    </ng-template>
+  </mat-tab-group>
 </div>

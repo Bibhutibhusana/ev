@@ -11,13 +11,6 @@ export class StatusService{
     this.baseURL = this.commonService.getBaseUrl()
   }
 
-  getOtp(){
-    return this.http.get(`http://localhost:8089/otp`);
-  }
-  getOemValidate(id: number){
-
-    return this.http.get(`http://localhost:8089/evValidate/${id}`);
-  }
 
   getRegnChasiVerify(regn: string, chasi: string):any{
 
@@ -28,5 +21,16 @@ export class StatusService{
 
   getApplicationStatus(regn: string){
     return this.http.post(`${this.baseURL}/applicationStatus`,regn);
+  }
+  getOtp(regn: any, mobile_no: any){
+    return this.http.post(`${this.baseURL}/otp`,{"regn_no": regn, "mobile_no": mobile_no});
+  }
+
+  getToKnowApplicationNumber(regn: any){
+    return this.http.post(`${this.baseURL}/api/knowApplicationNumber`,regn);
+  }
+  // Added By Abinash Nayak for Application Status Search start
+  getApplicationStatusByAdmin(regn: string,appl:string,fr_date:Date,to_date:Date){
+    return this.http.post(`${this.baseURL}/applicationStatusByAdmin`,{"regn":regn,"appl":appl,"fr_date":fr_date,"to_date":to_date});
   }
 }

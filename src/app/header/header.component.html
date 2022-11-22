@@ -57,6 +57,53 @@
           </button>
         </div>
         <div class="col-md-6 text-end mt-1">
+          <button
+        mat-raised-button
+        class="btn btn-sm pt-0 pb-0"
+        [ngStyle]="{
+          'background-color': 'rgba(0,5,255,0.38)',
+          color: 'white',
+          opacity: '0.9',
+          'padding-top': '0px'
+        }"
+        (click) ="increaseFontSize()"
+      >
+       <label
+          class="d-none d-md-inline"
+          >A+</label
+        ></button>
+        &nbsp;
+        <button
+        mat-raised-button
+        class="btn btn-sm pt-0 pb-0"
+        [ngStyle]="{
+          'background-color': 'white',
+          color: 'black',
+          opacity: '0.9',
+          'padding-top': '0px'
+        }"
+        (click) ="setNormalFontSize()"
+      >
+       <label
+          class="d-none d-md-inline"
+          >A</label
+        ></button>
+        &nbsp;
+        <button
+        mat-raised-button
+        class="btn btn-sm pt-0 pb-0"
+        [ngStyle]="{
+          'background-color': 'rgba(147, 51, 210, 0.38)',
+          color: 'white',
+          opacity: '0.9',
+          'padding-top': '0px'
+        }"
+        (click) ="decreaseFontSize()"
+      ><label
+          class="d-none d-md-inline"
+          >A-</label
+        ></button>
+          &nbsp;
           <button mat-raised-button color="warn" routerLink="/login">
             Login<mat-icon>navigate_next</mat-icon>
           </button>

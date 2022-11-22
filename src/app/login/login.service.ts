@@ -15,5 +15,9 @@ export class LoginService{
     return this.http.post(`${this.baseURL}/login`,{username:username, password:password});
 
   }
+  getTocken(username: string, password: string):any{
+
+    return this.http.post(`${this.baseURL}/authenticate`,{username:username, password:password})
+  }
 
 }

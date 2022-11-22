@@ -15,15 +15,21 @@ export class VerifyService{
     this.baseURL = this.commonService.getBaseUrl()
    }
 
+   getAllRevertInfo(){
+    return this.http.get(`${this.baseURL}/all`);
+   }
+
+   saveRevertInfo(id: any, fileRefId: any, billNo: any, billRefNo: any, resFileName: any, applNo: any, regnNo: any, accNo: any, name: any, ifsc: any, submitStatus: any, submitDate: Date, submitErr: any, ackStatus: any, ackDate: Date, ackErr: any, billStatus: any, billStatusErr: any, checkStatus: any, checkStatusErr: any, checkStatusDate: Date, voucherNo: any, voucherDare: Date, billStatusString: any, utrNo: any, utrDate: Date, benfPaymentStatus: any, benefBillStatus: any, ddoCheckStatus: any, ddoCheckStatusDate: Date, revertStatus: any, revertStatusDate: Date, updateDatetime: Date) {
+    return this.http.put(`${this.baseURL}/save`, {"id": id, "fileRefId": fileRefId, "billNo": billNo, "billRefNo": billRefNo, "resFileName": resFileName, "applNo": applNo, "regnNo": regnNo, "accNo": accNo, "name": name, "ifsc": ifsc, "submitStatus": submitStatus, "submitDate": submitDate, "submitErr": submitErr, "ackStatus": ackStatus, "ackDate": ackDate, "ackErr": ackErr, "billStatus": billStatus, "billStatusErr": billStatusErr, "checkStatus": checkStatus, "checkStatusErr": checkStatusErr, "checkStatusDate": checkStatusDate, "voucherNo": voucherNo, "voucherDare": voucherDare, "billStatusString": billStatusString, "utrNo": utrNo, "utrDate": utrDate, "benfPaymentStatus": benfPaymentStatus, "benefBillStatus": benefBillStatus, "ddoCheckStatus": ddoCheckStatus, "ddoCheckStatusDate": ddoCheckStatusDate, "revertStatus":revertStatus, "revertStatusDate":revertStatusDate, "updateDatetime":updateDatetime});
+   }
 
   getToVerifyList(off_cd: any){
-
     return this.http.post(`${this.baseURL}/verify`,off_cd);
   }
 
-  updateVerificationStatus(regn: any,username: any,reason: any,verification: any){
+  updateVerificationStatus(regn: any,username: any,reason: any,verification: any,date: Date){
     return this.http.post(`${this.baseURL}/updateStatusVerification`,
-    {"regn":regn,"user":username,"reason":reason,"verify":verification});
+    {"regn":regn,"user":username,"reason":reason,"verify":verification,"date":date});
   }
 
   getStatus(regn: string){
@@ -75,5 +81,23 @@ export class VerifyService{
 
 
     return this.http.post(`${this.baseURL}/sendRevertedMsg`,{"applNo":applNo,"rto":rto,"mob":mob,"regn":regn,"reason":reason});
+  }
+
+  getTotalApplied(fromdate: Date,todate: Date,off_cd: any,type: any){
+
+
+    return this.http.post(`${this.baseURL}/totalApplied`,{"fromdate":fromdate,"todate":todate,"off_cd":off_cd,"type":type});
+  }
+  getApplicationStatus(regn: string){
+    return this.http.post(`${this.baseURL}/applicationStatus`,regn);
+  }
+
+  insertToRevertStatus(regn: any,applNo: any, verification: any,approval: any,opdt: Date,reason: any,verifyUserId: any,approveUserId: any, insertDt: Date){
+    return this.http.post(`${this.baseURL}/insertToRevertStatus`,{"regn":regn,"applNo":applNo,"verification": verification,"approval":approval,"opDt":opdt,"reason":reason,"verfiyUserId":verifyUserId,
+  "approveUserId":approveUserId,"insertDt":insertDt});
+  }
+
+  findByRegnNo(regn_no: string) {
+    return this.http.post(`${this.baseURL}/findall`, regn_no);
   }
 }
