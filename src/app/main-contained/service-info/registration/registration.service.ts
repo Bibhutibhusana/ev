@@ -27,6 +27,11 @@ export class RegistrationService {
     return this.http.post(`${this.baseURL}/chasiVerification`,{regn: regn, chasi: chasi});
 
   }
+  getIFSCCodeVerify(ifscCode: string):any{
+
+    return this.http.post(`${this.baseURL}/ifscVerification`,ifscCode);
+
+  }
 
   getVehicleDetials(regn: string):any{
     return this.http.post(`${this.baseURL}/vehicleDetails`,regn);
@@ -53,6 +58,13 @@ export class RegistrationService {
     return this.http.get(`${this.baseURL}/checkExistBankDetails/${regn}`)
   }
 
+  checkBankAndStatusDetails(regn:any){
+    return this.http.get(`${this.baseURL}/checkExistBankAndStatusDetails/${regn}`)
+  }
+  checkBankAndStatusDetailsExist(regn: any): any{
+    return this.http.get(`${this.baseURL}/checkBankAndStatusDetails/${regn}`)
+  }
+
   insertUserStatus(userStatus: any):any{
     return this.http.post(`${this.baseURL}/insertUserStatus`, userStatus )
   }
@@ -70,6 +82,11 @@ export class RegistrationService {
   sendSuccessRegistrationMsg(applNo:any,regn: any,rto: any,mob: any){
     return this.http.post(`${this.baseURL}/sendSuccessRegistrationMsg`,{"applNo":applNo,"regn":regn,"rto":rto,"mob":mob} )
   }
-
+  insertBankAndStatusDetails(userStatus:UserStatus,bankDetails:any){
+    return this.http.post(`${this.baseURL}/insertBankAndStatusDetails`,{"bankDetails":bankDetails, "userStatus":userStatus})
+  }
+  getAllEVModelDetails(){
+    return this.http.get(`${this.baseURL}/evValidate` )
+  }
 
 }

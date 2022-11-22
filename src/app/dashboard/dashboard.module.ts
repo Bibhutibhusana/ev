@@ -27,6 +27,7 @@ import {MatTableModule} from "@angular/material/table";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
 import {MatStepperModule} from "@angular/material/stepper";
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import {MatStepperModule} from "@angular/material/stepper";
         MatProgressSpinnerModule,
         NgxSkeletonLoaderModule,
         MatStepperModule,
+        MatTabsModule
     ]
 })
 export class DashboardModule { }

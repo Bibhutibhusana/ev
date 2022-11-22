@@ -10,11 +10,7 @@
     <div class="col-md-4 my-auto">
       <div class="row">
         <div class="col-md-3 text-end my-auto">
-          <img
-            src="./assets/images/odish-govt-logo.jpg"
-            alt="Odisha Govt. Logo"
-            style="width: 60px; height: 70px"
-          />
+          <img src="./assets/images/odish-govt-logo.jpg" alt="Odisha Govt. Logo" style="width: 60px; height: 70px" />
         </div>
 
         <div class="col-md-9 text-start my-auto p-0">
@@ -44,16 +40,11 @@
       <div class="col-md-6">
         <div class="d-flex justify-content-end">
           <div class="my-auto p-1">
-            <img
-              src="./assets/images/account.svg"
-              alt="Account"
-              height="20"
-              width="20"
-            />
+            <img src="./assets/images/account.svg" alt="Account" height="20" width="20" />
             {{ username }}
           </div>
           <div class="my-auto p-1">
-            <button mat-raised-button color="warn" routerLink="/login">
+            <button mat-raised-button color="warn" (click)="onLogout()">
               SIGN OUT <mat-icon>chevron_right</mat-icon>
             </button>
           </div>
@@ -99,6 +90,12 @@
               <th mat-header-cell *matHeaderCellDef>Account Number</th>
               <td mat-cell *matCellDef="let element">{{ element.acc_no }}</td>
             </ng-container>
+            <ng-container matColumnDef="IFSC Code">
+              <th mat-header-cell *matHeaderCellDef>IFSC Code</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.ifsc_code }}
+              </td>
+            </ng-container>
 
             <ng-container matColumnDef="Branch Name">
               <th mat-header-cell *matHeaderCellDef>Branch Name</th>
@@ -128,15 +125,11 @@
             <ng-container matColumnDef="Passbook Image">
               <th mat-header-cell *matHeaderCellDef>Passbook Image</th>
               <td mat-cell *matCellDef="let element">
-                <a
-                  (click)="getImage(element.passbook_img, passbook_image)"
-                  style="
+                <a (click)="getImage(element.passbook_img, passbook_image)" style="
                     text-decoration: underline;
                     color: dodgerblue;
                     cursor: pointer;
-                  "
-                  >Click Here</a
-                >
+                  ">Click Here</a>
               </td>
             </ng-container>
             <ng-container matColumnDef="Subsidy Amount">
@@ -149,35 +142,19 @@
             <ng-container matColumnDef="Action">
               <th mat-header-cell *matHeaderCellDef>Action</th>
               <td mat-cell *matCellDef="let element">
-                <button
-                  *ngIf="element.approval == null"
-                  mat-raised-button
-                  (click)="approveButton(element, confirm)"
-                  style="background-color: dodgerblue; color: white"
-                >
+                <button *ngIf="element.approval == null" mat-raised-button (click)="approveButton(element, confirm)"
+                  style="background-color: dodgerblue; color: white">
                   Approve
                 </button>
-                <button
-                  *ngIf="element.approval == 'y'"
-                  mat-raised-button
-                  style="background-color: green; color: white"
-                >
+                <button *ngIf="element.approval == 'y'" mat-raised-button style="background-color: green; color: white">
                   <mat-icon>check_circle</mat-icon>
                   Approved
                 </button>
-                <button
-                  *ngIf="element.approval == 'rejected' && rejectFinalBool"
-                  mat-raised-button
-                  color="warn"
-                >
+                <button *ngIf="element.approval == 'rejected' && rejectFinalBool" mat-raised-button color="warn">
                   <mat-icon>check_circle</mat-icon>
                   Rejected
                 </button>
-                <button
-                  *ngIf="element.approval == 'rev' && !rejectFinalBool"
-                  mat-raised-button
-                  color="warn"
-                >
+                <button *ngIf="element.approval == 'rev' && !rejectFinalBool" mat-raised-button color="warn">
                   <mat-icon>remove_circle</mat-icon>
                   Reverted
                 </button>
@@ -188,11 +165,8 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
           </table>
 
-          <mat-paginator
-            [pageSizeOptions]="[5, 10, 20]"
-            showFirstLastButtons
-            aria-label="Select page of periodic elements"
-          >
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
           </mat-paginator>
         </div>
       </mat-card>
@@ -202,12 +176,7 @@
           <hr />
           <img [src]="passbook" alt="" />
           <br />
-          <button
-            mat-stroked-button
-            color="primary"
-            class="mt-4"
-            (click)="closeDialog()"
-          >
+          <button mat-stroked-button color="primary" class="mt-4" (click)="closeDialog()">
             Close
           </button>
         </div>
@@ -216,14 +185,12 @@
         <div class="text-center">
           <div class="text-start">
             <div class="text-center">
-              <p
-                style="
+              <p style="
                   border: 1px solid dodgerblue;
                   color: white;
                   background-color: dodgerblue;
                   border-radius: 5px;
-                "
-              >
+                ">
                 Instructions for Approval
               </p>
             </div>
@@ -252,22 +219,14 @@
 
             <mat-form-field appearance="fill" style="width: 70%">
               <mat-label>Select Reason</mat-label>
-              <mat-select
-                [(ngModel)]="reason"
-                name="reason"
-                (valueChange)="onSelect($event)"
-              >
+              <mat-select [(ngModel)]="reason" name="reason" (valueChange)="onSelect($event)">
                 <mat-option *ngFor="let reason of reasons" [value]="reason">
                   {{ reason }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
 
-            <textarea
-              *ngIf="reason == 'Other'"
-              [(ngModel)]="otherReason"
-              name="otherReason"
-            >
+            <textarea *ngIf="reason == 'Other'" [(ngModel)]="otherReason" name="otherReason">
             </textarea>
           </div>
 
@@ -276,63 +235,33 @@
           <div class="col-md-6 mx-auto">
             <div class="row">
               <div class="col-md-3">
-                <button
-                  *ngIf="rejectBool"
-                  mat-raised-button
-                  class="mt-2"
-                  style="background-color: green; color: white"
-                  (click)="confirmButton()"
-                >
+                <button *ngIf="rejectBool" mat-raised-button class="mt-2" style="background-color: green; color: white"
+                  (click)="confirmButton()">
                   Confirm
                 </button>
               </div>
               <div class="col-md-3">
-                <button
-                  mat-raised-button
-                  class="mt-2"
-                  style="background-color: orange; color: white"
-                  *ngIf="rejectBool"
-                  (click)="onRevert()"
-                >
+                <button mat-raised-button class="mt-2" style="background-color: orange; color: white" *ngIf="rejectBool"
+                  (click)="onRevert()">
                   Revert
                 </button>
               </div>
               <div class="col-md-3">
-                <button
-                  mat-raised-button
-                  style="background-color: red; color: white"
-                  class="mt-2"
-                  *ngIf="rejectBool"
-                  (click)="onReject()"
-                >
+                <button mat-raised-button style="background-color: red; color: white" class="mt-2" *ngIf="rejectBool"
+                  (click)="onReject()">
                   Reject
                 </button>
-                <button
-                  mat-raised-button
-                  style="background-color: red; color: white"
-                  class="mt-2"
-                  *ngIf="rejectFinalBool"
-                  (click)="onYesNo(dialogYesNo)"
-                >
+                <button mat-raised-button style="background-color: red; color: white" class="mt-2"
+                  *ngIf="rejectFinalBool" (click)="onYesNo(dialogYesNo)">
                   Reject
                 </button>
-                <button
-                  *ngIf="!rejectBool && !rejectFinalBool"
-                  mat-raised-button
-                  class="mt-2"
-                  style="background-color: red; color: white"
-                  (click)="confirmButton()"
-                >
+                <button *ngIf="!rejectBool && !rejectFinalBool" mat-raised-button class="mt-2"
+                  style="background-color: red; color: white" (click)="confirmButton()">
                   Revert
                 </button>
               </div>
               <div class="col-md-3">
-                <button
-                  mat-raised-button
-                  color="primary"
-                  class="mt-2"
-                  (click)="closeDialog()"
-                >
+                <button mat-raised-button color="primary" class="mt-2" (click)="closeDialog()">
                   Close
                 </button>
               </div>
@@ -352,11 +281,7 @@
               <button mat-stroked-button (click)="closeDialog()">No</button>
             </div>
             <div class="col-md-6">
-              <button
-                mat-stroked-button
-                color="primary"
-                (click)="rejectButton()"
-              >
+              <button mat-stroked-button color="primary" (click)="rejectButton()">
                 Yes
               </button>
             </div>
@@ -459,21 +384,13 @@
 
     <mat-tab label="Final Approval List">
       <mat-card>
-        <div class="col-md-8 mx-auto">
+        <div class="col-md-10 mx-auto">
           <div class="row mx-auto">
             <div class="col-md-4 my-auto">
               <mat-form-field appearance="outline">
                 <mat-label>Approval Date</mat-label>
-                <input
-                  matInput
-                  [matDatepicker]="frompicker"
-                  [(ngModel)]="fromDate"
-                  #inputPicker="ngModel"
-                />
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="frompicker"
-                ></mat-datepicker-toggle>
+                <input matInput [matDatepicker]="frompicker" [(ngModel)]="fromDate" #inputPicker="ngModel" />
+                <mat-datepicker-toggle matSuffix [for]="frompicker"></mat-datepicker-toggle>
                 <mat-datepicker #frompicker></mat-datepicker>
               </mat-form-field>
             </div>
@@ -494,11 +411,7 @@
               </mat-form-field>
             </div> -->
             <div class="col-md-2 my-auto">
-              <button
-                mat-raised-button
-                style="background-color: dodgerblue; color: white"
-                (click)="onSearch()"
-              >
+              <button mat-raised-button style="background-color: dodgerblue; color: white" (click)="onSearch()">
                 <mat-icon>search</mat-icon>Search
               </button>
             </div>
@@ -507,9 +420,13 @@
                 <mat-icon>cloud_download</mat-icon> &nbsp; Download
               </button>
             </div>
+            <div class="col-md-2 my-auto" *ngIf="!searchBool">
+              <button mat-raised-button color="primary" (click)="exportToExcelSheet()">
+                <mat-icon>description</mat-icon> &nbsp; Export To Excel
+              </button>
+            </div>
           </div>
         </div>
-
         <div class="mat-elevation-z8" *ngIf="!searchBool">
           <div class="text-center">
             <h5 class="mt-4">Regional Transport Office, {{ rtoName }}</h5>
@@ -563,31 +480,36 @@
                 {{ element.bank_name }}
               </td>
             </ng-container>
-            <ng-container matColumnDef="Subsidy Amount">
-              <th mat-header-cell *matHeaderCellDef>Subsidy Amount</th>
-              <td mat-cell *matCellDef="let element">
-                {{ element.sub_amnt }}
-              </td>
-            </ng-container>
             <ng-container matColumnDef="Contact Number">
               <th mat-header-cell *matHeaderCellDef>Contact Number</th>
               <td mat-cell *matCellDef="let element">
                 {{ element.mob_no }}
               </td>
             </ng-container>
+            <ng-container matColumnDef="Subsidy Amount">
+              <th mat-header-cell *matHeaderCellDef>Subsidy Amount</th>
+              <td mat-cell *matCellDef="let element" style="text-align: right !important">
+                {{ element.sub_amnt}}
+              </td>
+            </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumnsFinal"></tr>
-            <tr
-              mat-row
-              *matRowDef="let row; columns: displayedColumnsFinal"
-            ></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsFinal"></tr>
           </table>
 
-          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+          <div class="text-end mt-2" style="margin-right: 10px">
+            <mat-label style="color: dodgerblue; font-weight: bold">Total Amount : Rs.{{ totalAmount }}/- ({{
+              totalAmount | amountToWord
+              }}
+              only)</mat-label>
+          </div>
+
+          <mat-paginator [pageSizeOptions]="[15, 20, 25]" showFirstLastButtons>
           </mat-paginator>
         </div>
       </mat-card>
     </mat-tab>
+    <!-- -- -->
     <mat-tab label="Disbursement List">
       <mat-card>
         <h4>Pending List for Disbursement</h4>
@@ -597,16 +519,8 @@
             <div class="col-md-4 my-auto">
               <mat-form-field appearance="outline">
                 <mat-label>Approval Date</mat-label>
-                <input
-                  matInput
-                  [matDatepicker]="frompicker2"
-                  [(ngModel)]="approvalDate"
-                  #inputPicker="ngModel"
-                />
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="frompicker2"
-                ></mat-datepicker-toggle>
+                <input matInput [matDatepicker]="frompicker2" [(ngModel)]="approvalDate" #inputPicker="ngModel" />
+                <mat-datepicker-toggle matSuffix [for]="frompicker2"></mat-datepicker-toggle>
                 <mat-datepicker #frompicker2></mat-datepicker>
               </mat-form-field>
             </div>
@@ -627,11 +541,8 @@
               </mat-form-field>
             </div> -->
             <div class="col-md-2 my-auto">
-              <button
-                mat-raised-button
-                style="background-color: dodgerblue; color: white"
-                (click)="onSearchForDisbursement()"
-              >
+              <button mat-raised-button style="background-color: dodgerblue; color: white"
+                (click)="onSearchForDisbursement()">
                 <mat-icon>search</mat-icon>Search
               </button>
             </div>
@@ -690,25 +601,15 @@
 
             <ng-container matColumnDef="Select">
               <th mat-header-cell *matHeaderCellDef>
-                <mat-checkbox
-                  #s
-                  (change)="$event ? masterToggle() : null"
+                <mat-checkbox #s (change)="$event ? masterToggle() : null"
                   [checked]="selection.hasValue() && isAllSelected()"
-                  [indeterminate]="selection.hasValue() && !isAllSelected()"
-                  color="primary"
-                  (click)="onAllSelect(s)"
-                >
+                  [indeterminate]="selection.hasValue() && !isAllSelected()" color="primary" (click)="onAllSelect(s)">
                 </mat-checkbox>
                 Select All
               </th>
               <td mat-cell *matCellDef="let row">
-                <mat-checkbox
-                  #c
-                  (click)="onCheck($event, row, c)"
-                  (change)="$event ? selection.toggle(row) : null"
-                  [checked]="selection.isSelected(row)"
-                  color="primary"
-                >
+                <mat-checkbox #c (click)="onCheck($event, row, c)" (change)="$event ? selection.toggle(row) : null"
+                  [checked]="selection.isSelected(row)" color="primary">
                 </mat-checkbox>
                 <!-- <label>Disbursed</label> -->
               </td>
@@ -718,23 +619,342 @@
             <tr mat-row *matRowDef="let row; columns: disbusereColumns"></tr>
           </table>
 
-          <mat-paginator
-            [pageSizeOptions]="[5, 10, 20]"
-            showFirstLastButtons
-            aria-label="Select page of periodic elements"
-          >
+          <mat-paginator [pageSizeOptions]="[15, 20, 25]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
           </mat-paginator>
         </div>
         <div class="text-center mt-3">
-          <button
-            mat-raised-button
-            color="primary"
-            (click)="onSubmitDisbursement(dialogUpdate)"
-          >
+          <button mat-raised-button color="primary" (click)="onSubmitDisbursement(dialogUpdate)">
             Submit
           </button>
         </div>
       </mat-card>
+    </mat-tab>
+    <!-- -- -->
+    <mat-tab label="Report">
+      <div class="mt-2 col-10 mx-auto">
+        <div class="row">
+          <div class="col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label>From Date</mat-label>
+              <input matInput [matDatepicker]="frompickerReport" [(ngModel)]="fromDate" #inputPicker="ngModel" />
+              <mat-datepicker-toggle matSuffix [for]="frompickerReport"></mat-datepicker-toggle>
+              <mat-datepicker #frompickerReport></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label>To Date</mat-label>
+              <input matInput [matDatepicker]="topicker" [(ngModel)]="toDate" #inputPicker="ngModel" />
+              <mat-datepicker-toggle matSuffix [for]="topicker"></mat-datepicker-toggle>
+              <mat-datepicker #topicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Search By</mat-label>
+              <mat-select [(value)]="reportOptionSelect">
+                <mat-option>Select One</mat-option>
+                <mat-option value="plvs">Pending List at Verify Stage</mat-option>
+                <mat-option value="plas">Pending List at Approval Stage</mat-option>
+
+                <mat-option value="taar">Total Applied Application Report</mat-option>
+                <mat-option value="tvar">Total Verified Application Report</mat-option>
+
+                <mat-option value="tapr">Total Approved Application Report</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3 mx-auto my-auto">
+            <button mat-raised-button color="primary" (click)="onSearchForReport()">
+              Search
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-7"></div>
+          <div class="col-md-5 mx-auto" *ngIf="!exportBool">
+            <button mat-raised-button color="primary" (click)="exportToReportPDF()">
+              <mat-icon>picture_as_pdf</mat-icon> &nbsp; Export To PDF
+            </button>
+            <button mat-raised-button color="primary" (click)="exportToExcel()">
+              <mat-icon>cloud_download</mat-icon> &nbsp; Export To Excel
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <mat-card class="mt-2" *ngIf="reportOptionBool">
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSourceReport" *ngIf="reportOptionBool" matTableExporter>
+            <ng-container matColumnDef="Sl No.">
+              <th mat-header-cell *matHeaderCellDef>Sl No.</th>
+              <td mat-cell *matCellDef="let element; let i = index">
+                {{ i + 1 }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="Application Number">
+              <th mat-header-cell *matHeaderCellDef>Application Number</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.appl_no }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Registration Number">
+              <th mat-header-cell *matHeaderCellDef>Registration Number</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.regn_no }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="Vehicle Class">
+              <th mat-header-cell *matHeaderCellDef>Vehicle Class</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.v_class }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Owner Name">
+              <th mat-header-cell *matHeaderCellDef>Owner Name</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.owner_name }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Bank Account Number">
+              <th mat-header-cell *matHeaderCellDef>Bank Account Number</th>
+              <td mat-cell *matCellDef="let element">{{ element.acc_no }}</td>
+            </ng-container>
+            <ng-container matColumnDef="Subsidy Amount">
+              <th mat-header-cell *matHeaderCellDef>Subsidy Amount</th>
+              <td mat-cell *matCellDef="let element">{{ element.sub_amnt }}</td>
+            </ng-container>
+            <ng-container matColumnDef="Approve Date">
+              <th mat-header-cell *matHeaderCellDef>Approve Date</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.approve_dt }}
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsReport"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsReport"></tr>
+          </table>
+          <mat-paginator [pageSizeOptions]="[15, 20, 25]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+          </mat-paginator>
+        </div>
+      </mat-card>
+    </mat-tab>
+    <!-- -- -->
+    <mat-tab label="Vehicle Status">
+      <div class="col-4 my-auto mx-auto mt-3">
+        <div class="row">
+          <div class="col-md-8">
+            <mat-form-field class="w-100 custom-input-field" appearance="outline">
+              <mat-label>Vehicle Number</mat-label>
+              <input matInput maxlength="10" minlength="9" oninput="this.value = this.value.toUpperCase()"
+                [formControl]="regn_no" name="regn_no" />
+              <mat-error *ngIf="regn_no.invalid">Please Enter a valid Vehicle Number.</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4 my-auto">
+            <button mat-raised-button color="primary" (click)="onSearchForStatus()">
+              Search
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <mat-card class="mt-3" *ngIf="statusTableFlag">
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSourceStatus">
+            <ng-container matColumnDef="Application Number">
+              <th mat-header-cell *matHeaderCellDef>Application Number</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.appl_no }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Registration Number">
+              <th mat-header-cell *matHeaderCellDef>Registration Number</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.regn_no }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Owner Name">
+              <th mat-header-cell *matHeaderCellDef>Owner Name</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.owner_name }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Bank Account Number">
+              <th mat-header-cell *matHeaderCellDef>Bank Account Number</th>
+              <td mat-cell *matCellDef="let element">{{ element.acc_no }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="Application Status">
+              <th mat-header-cell *matHeaderCellDef>Application Status</th>
+              <td mat-cell *matCellDef="let element" [ngStyle]="{
+                  color:
+                    element.status == 'Payment Done' ? 'green' : 'dodgerblue',
+                  'font-weight': 'bold'
+                }" [ngStyle]="{
+                  color:
+                    element.status == 'Reverted in Approval'
+                      ? 'red'
+                      : 'dodgerblue',
+                  'font-weight': 'bold'
+                }" [ngStyle]="{
+                  color:
+                    element.status == 'Reverted in Verification'
+                      ? 'red'
+                      : 'dodgerblue',
+                  'font-weight': 'bold'
+                }">
+                {{ element.status }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Verify Date">
+              <th mat-header-cell *matHeaderCellDef>Verify Date</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.verify_dt }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="Approve Date">
+              <th mat-header-cell *matHeaderCellDef>Approve Date</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.approve_dt }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="Disbursement Status">
+              <th mat-header-cell *matHeaderCellDef>Disbursement Status</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.disbursement }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="Revert Status">
+              <th mat-header-cell *matHeaderCellDef>Revert Reason</th>
+              <td mat-cell *matCellDef="let element">{{ element.reason }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsStatus"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsStatus"></tr>
+          </table>
+        </div>
+      </mat-card>
+    </mat-tab>
+    <!-- -- -->
+    <mat-tab label="Payment Rejected Benificiary Details">
+      <mat-card>
+        <hr class="mb-2" />
+
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="revertDataSource">
+            <ng-container matColumnDef="Sl No.">
+              <th mat-header-cell *matHeaderCellDef>Sl No.</th>
+              <td mat-cell *matCellDef="let element; let i = index">
+                {{ i + 1 }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Application Number">
+              <th mat-header-cell *matHeaderCellDef>Application Number</th>
+              <td mat-cell *matCellDef="let element">{{ element.applNo }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="Registration Number">
+              <th mat-header-cell *matHeaderCellDef>Registration Number</th>
+              <td mat-cell *matCellDef="let element">{{ element.regnNo }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="Owner Name">
+              <th mat-header-cell *matHeaderCellDef>Owner Name</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.name }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Account Number">
+              <th mat-header-cell *matHeaderCellDef>Account Number</th>
+              <td mat-cell *matCellDef="let element">{{ element.accNo }}</td>
+            </ng-container>
+            <ng-container matColumnDef="IFSC Code">
+              <th mat-header-cell *matHeaderCellDef>IFSC Code</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.ifsc }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Action">
+              <th mat-header-cell *matHeaderCellDef>Action</th>
+              <td mat-cell *matCellDef="let element">
+                <button *ngIf="element.revertStatus == null" mat-raised-button (click)="revertButton(element, reverted)"
+                  style="background-color: green; color: white">
+                  <mat-icon>check_circle</mat-icon>
+                  Revert
+                </button>
+                <button *ngIf="element.revertStatus == 'y'" mat-raised-button color="warn">
+                  <mat-icon>check_circle</mat-icon>
+                  Reverted
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsRevert"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsRevert"></tr>
+          </table>
+
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+          </mat-paginator>
+        </div>
+      </mat-card>
+
+      <ng-template #reverted>
+        <div class="text-center">
+          <div class="text-start">
+            <div class="text-center">
+              <p style="
+                  border: 1px solid dodgerblue;
+                  color: white;
+                  background-color: dodgerblue;
+                  border-radius: 5px;
+                ">
+                Process for Revert
+              </p>
+            </div>
+          </div>
+          <hr />
+          <div class="col-md-12">
+            <div class="d-flex justify-content-center">
+              <p class="h4 fw-bold">Reason:</p><span>&nbsp;</span><span>&nbsp;</span><p> {{ revertInfo }} </p>
+            </div>
+          </div>
+          <p *ngIf="revertBool" style="font-size: 18px">
+            Are you sure, You want to revert?
+          </p>
+
+          <br />
+
+          <div class="col-md-6 mx-auto">
+            <div class="row">
+              <div class="col-md-6">
+                <button mat-stroked-button color="primary" (click)="saveRevert()"
+                  style="background-color: green; color: white">
+                  Yes
+                </button>
+              </div>
+              <div class="col-md-6">
+                <button mat-stroked-button style="background-color: orange; color: white"
+                  (click)="closeDialog()">No</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </ng-template>
     </mat-tab>
   </mat-tab-group>
 </div>

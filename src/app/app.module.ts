@@ -39,6 +39,10 @@ import { MatTableModule } from '@angular/material/table';
 import {MatTabsModule} from '@angular/material/tabs';
 import {NgxPrintModule} from 'ngx-print';
 import { DatePipe } from '@angular/common';
+import { AdminComponent } from './login/admin/admin.component';
+import {MatTableExporterModule} from 'mat-table-exporter';
+import { AmountToWordPipe } from './login/amount-to-word.pipe';
+import { DdoComponent } from './login/ddo/ddo.component';
 
 
 @NgModule({
@@ -46,7 +50,10 @@ import { DatePipe } from '@angular/common';
     AppComponent,
     LoginComponent,
     VerifyComponent,
-    ApproveComponent
+    ApproveComponent,
+    AdminComponent,
+    AmountToWordPipe,
+    DdoComponent
 
   ],
   imports: [
@@ -78,15 +85,17 @@ import { DatePipe } from '@angular/common';
     MatPaginatorModule,
     MatTableModule,
     MatTabsModule,
-    NgxPrintModule
+    NgxPrintModule,
+    MatTableExporterModule
 
   ],
+  exports: [AmountToWordPipe],
   providers: [HttpClient, DatePipe,{
     provide: HTTP_INTERCEPTORS,
 
     useClass: IntercepterService,
     multi: true
-  }],
+  },AmountToWordPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

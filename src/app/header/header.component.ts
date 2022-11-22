@@ -21,5 +21,27 @@ export class HeaderComponent implements OnInit {
   onLoginClick(){
     this.login = true;
   }
+  increaseFontSize(){
+    console.log(document.body.style.fontSize.substring(0,document.body.style.fontSize.length-2))
+    if(document.body.style.fontSize.length != 0){
+      document.body.style.fontSize = String(Number(document.body.style.fontSize.substring(0,document.body.style.fontSize.length-2)) + 1)+"px";
+    }
+    else{
+      document.body.style.fontSize = "16px";
+    }
+
+  }
+  setNormalFontSize(){
+    document.body.style.fontSize ="16px";
+  }
+  decreaseFontSize(){
+    console.log(document.body.style.fontSize.length != 0)
+    if(document.body.style.fontSize != null){
+      document.body.style.fontSize = String(Number(document.body.style.fontSize.substring(0,document.body.style.fontSize.length-2)) - 1)+"px";
+    }
+    else{
+      document.body.style.fontSize = "16px";
+    }
+  }
 
 }

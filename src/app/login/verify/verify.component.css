@@ -11,9 +11,10 @@ th {
 
 .mat-cell {
   border: 1px solid #81b079 !important;
-  padding-left: 10px !important;
+  padding-left: 5px !important;
+  padding-right: 5px !important;
 }
 .mat-header-cell {
   border-left: 1px solid rgb(165, 165, 165) !important;
-  padding-left: 10px !important;
+  padding-left: 5px !important;
 }
