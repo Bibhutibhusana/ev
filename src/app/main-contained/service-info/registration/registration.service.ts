@@ -75,8 +75,12 @@ export class RegistrationService {
 
 
 
-  getBankNames(){
-    return this.http.get(`${this.baseURL}/banks` )
+  findAllBankNames(){
+    return this.http.get(`${this.baseURL}/bankNames` )
+  }
+
+  getAllBankDetailByBankName(bank: any) {
+    return this.http.post(`${this.baseURL}/bankByName`, {"bank":bank})
   }
 
   sendSuccessRegistrationMsg(applNo:any,regn: any,rto: any,mob: any){

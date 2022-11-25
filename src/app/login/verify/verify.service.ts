@@ -16,7 +16,7 @@ export class VerifyService{
    }
 
    getAllRevertInfo(){
-    return this.http.get(`${this.baseURL}/all`);
+    return this.http.get(`${this.baseURL}/pendingifmstransactionlist`);
    }
 
    saveRevertInfo(id: any, fileRefId: any, billNo: any, billRefNo: any, resFileName: any, applNo: any, regnNo: any, accNo: any, name: any, ifsc: any, submitStatus: any, submitDate: Date, submitErr: any, ackStatus: any, ackDate: Date, ackErr: any, billStatus: any, billStatusErr: any, checkStatus: any, checkStatusErr: any, checkStatusDate: Date, voucherNo: any, voucherDare: Date, billStatusString: any, utrNo: any, utrDate: Date, benfPaymentStatus: any, benefBillStatus: any, ddoCheckStatus: any, ddoCheckStatusDate: Date, revertStatus: any, revertStatusDate: Date, updateDatetime: Date) {
@@ -95,9 +95,5 @@ export class VerifyService{
   insertToRevertStatus(regn: any,applNo: any, verification: any,approval: any,opdt: Date,reason: any,verifyUserId: any,approveUserId: any, insertDt: Date){
     return this.http.post(`${this.baseURL}/insertToRevertStatus`,{"regn":regn,"applNo":applNo,"verification": verification,"approval":approval,"opDt":opdt,"reason":reason,"verfiyUserId":verifyUserId,
   "approveUserId":approveUserId,"insertDt":insertDt});
-  }
-
-  findByRegnNo(regn_no: string) {
-    return this.http.post(`${this.baseURL}/findall`, regn_no);
   }
 }

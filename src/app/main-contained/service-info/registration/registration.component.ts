@@ -12,9 +12,8 @@ import { VehicleDetailsModel } from './vehicleDetailsModel';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { UserStatus } from './userStatus';
-import { BankNames } from './banks';
-import { StringMapWithRename } from '@angular/compiler/src/compiler_facade_interface';
-import { Console } from 'console';
+import { BankDetails } from './bank-details';
+import { IfmsMaster } from './ifms-master';
 
 @Component({
   selector: 'app-registration',
@@ -35,9 +34,12 @@ export class RegistrationComponent implements OnInit {
 
   sendOtp: boolean = true;
 
-  bankNames: BankNames[] = [];
-
+  bankNames: IfmsMaster[] = [];
+  branchList: IfmsMaster[] = [];
+  ifscDetail!: IfmsMaster;
   selectedBankName!: string;
+  selectedIFSC!: string;
+  selectedBranch!: string;
 
   sendOtpFirst: boolean = false;
   disabledAgreement: boolean = true;
@@ -68,7 +70,7 @@ export class RegistrationComponent implements OnInit {
   ifscCode: any;
 
   bankDetails = new FormGroup({});
-  bankInfo: any;
+  bankInfo: BankDetails =new BankDetails();
 
   passbookImg: any;
 
@@ -80,8 +82,8 @@ export class RegistrationComponent implements OnInit {
   oemCheckwarr: boolean = true;
   oemCheckEnergy: boolean = true;
 
-  nameCheck: boolean = false;
-  ifscCheck: boolean = false;
+  nameCheck: boolean = false;  
+  ifscCheck: boolean = true;
 
   oemcheck: boolean = true;
 
@@ -126,7 +128,7 @@ export class RegistrationComponent implements OnInit {
     );
     this.resentBtnCheck = false;
 
-    this.registrationService.getBankNames().subscribe((data: any) => {
+    this.registrationService.findAllBankNames().subscribe((data: any) => {
       console.log("hit Bank");
       this.bankNames = data;
     });
@@ -136,6 +138,7 @@ export class RegistrationComponent implements OnInit {
     this.bankDetails = this.fb.group({
       regnNo: this.regn_no,
       bankName: [null],
+      accType: [null],
       branchName: [null],
       name: [null],
       accNo: [null],
@@ -287,6 +290,23 @@ export class RegistrationComponent implements OnInit {
       });
   }
 
+  onChangeBank(bank: any) {
+    console.log(this.branchList.length)
+    console.log(this.bankDetails.value.ifscCode == null)
+    this.registrationService.getAllBankDetailByBankName(bank.value).subscribe((data: any) => {
+      this.branchList = data;
+    })
+    // this.branchName = this.bankNames.filter(data => data.branch == value.target.value)?.branch;
+  }
+
+  onChangeBranch(branch: any) {
+    console.log(branch)
+    console.log(this.bankDetails.value.ifscCode)
+    console.log(branch.value.ifsc)
+    this.bankDetails.controls["ifscCode"].setValue(branch.value.ifsc);
+    // this.ifscCode = this.bankNames.find(data => data.ifsc == value.target.value)?.ifsc;
+  }
+
   uploadFile(event: any) {
     this.uploadedFile = event.target.files[0].name;
   }
@@ -325,6 +345,7 @@ export class RegistrationComponent implements OnInit {
     const file = event.target.files[0];
     const reader = new FileReader();
     if (file.type == 'image/jpeg' || file.type == 'image/png' || file.type == 'image/jpg') {
+      this.submitCheck = false;
       this.uploadedFile = event.target.files[0].name;
       reader.onload = (e: any) => {
         const bytes = e.target.result.split('base64,')[1];
@@ -462,6 +483,7 @@ export class RegistrationComponent implements OnInit {
   onSaveBankDetails(dialogCommon2: any, dialogCommon: any) {
     let reg = this.regn_no.value;
     this.bankInfo = this.bankDetails.value;
+    console.log(this.bankInfo)
     this.bankInfo.passbookImg = this.passbookImg;
 
     if (this.bankInfo.bankName == null) {

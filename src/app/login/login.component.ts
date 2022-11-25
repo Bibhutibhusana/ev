@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit {
       (data: any) => {
         this.loginService.getTocken(this.username.value, this.password.value).subscribe(
           (data: any) => {
-            console.log(data)
             let tokenStr = 'Bearer ' + data.token;
             window.sessionStorage.setItem("token", tokenStr);
           }

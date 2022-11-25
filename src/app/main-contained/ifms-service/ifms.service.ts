@@ -27,4 +27,8 @@ export class IfmsService {
   getIfmsTransactionByRegn(regnNo: any) {
     return this.http.post(`${this.baseURL}/findbyregn`, regnNo);
   }
+
+  findAllBankDetails() {
+    return this.http.get(`${this.baseURL}/findallbanks`);
+  }
 }

@@ -828,7 +828,7 @@ export class ApproveComponent implements OnInit {
       this.elementObj.updateDatetime = new Date,
       // this.elementObj.rtoCode = this.getOffCdNumberToPlace(this.off_cd)
     ).subscribe((data: any) => {
-      this.verifyService.findByRegnNo(this.elementObj.regnNo)
+      this.verifyService.getStatus(this.elementObj.regnNo)
         .subscribe((data: any) => {
           console.log(data);
           console.log(this.elementObj.regnNo);

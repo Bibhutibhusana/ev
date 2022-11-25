@@ -12,85 +12,42 @@
           <div class="col-8 mx-auto" *ngIf="regChasCheck">
             <div class="row mt-3">
               <div class="col-md-4 my-auto">
-                <mat-form-field
-                  class="w-100 custom-input-field"
-                  appearance="outline"
-                >
+                <mat-form-field class="w-100 custom-input-field" appearance="outline">
                   <mat-label>Vehicle Number</mat-label>
-                  <input
-                    matInput
-                    maxlength="10"
-                    minlength="9"
-                    oninput="this.value = this.value.toUpperCase()"
-                    [formControl]="regn_no"
-                    name="regn_no"
-                  />
-                  <mat-error *ngIf="regn_no.invalid"
-                    >Please Enter a valid Vehicle Number.</mat-error
-                  >
+                  <input matInput maxlength="10" minlength="9" oninput="this.value = this.value.toUpperCase()"
+                    [formControl]="regn_no" name="regn_no" />
+                  <mat-error *ngIf="regn_no.invalid">Please Enter a valid Vehicle Number.</mat-error>
                 </mat-form-field>
               </div>
               <div class="col-md-4 my-auto">
-                <mat-form-field
-                  class="w-100 h-10 custom-input-field"
-                  appearance="outline"
-                >
+                <mat-form-field class="w-100 h-10 custom-input-field" appearance="outline">
                   <mat-label>Chassis Number(Last 5 digits)</mat-label>
-                  <input
-                    matInput
-                    #input
-                    [formControl]="chasi_no"
-                    maxlength="5"
-                    minlength="5"
-                    name="chasi_no"
-                    oninput="this.value = this.value.toUpperCase()"
-                    (keyup)="onChassisEnter()"
-                  />
-                  <mat-error *ngIf="chasi_no.invalid"
-                    >It must contain 5 characters.</mat-error
-                  >
-                  <mat-hint align="end"
-                    >{{ input.value.length || 0 }}/5</mat-hint
-                  >
+                  <input matInput #input [formControl]="chasi_no" maxlength="5" minlength="5" name="chasi_no"
+                    oninput="this.value = this.value.toUpperCase()" (keyup)="onChassisEnter()" />
+                  <mat-error *ngIf="chasi_no.invalid">It must contain 5 characters.</mat-error>
+                  <mat-hint align="end">{{ input.value.length || 0 }}/5</mat-hint>
                 </mat-form-field>
               </div>
               <div class="col-md-4 text-center">
-                <button
-                  mat-raised-button
-                  class="mt-2 w-50"
-                  color="primary"
-                  [disabled]="sendOtp"
-                  (click)="onSendOtp()"
-                >
+                <button mat-raised-button class="mt-2 w-50" color="primary" [disabled]="sendOtp" (click)="onSendOtp()">
                   Send OTP
                 </button>
 
                 <!-- <img [src]="passbookImg" alt="" /> -->
               </div>
-              <p
-                *ngIf="!chasiFlag"
-                style="font-weight: bold; color: red; font-size: 12px"
-              >
+              <p *ngIf="!chasiFlag" style="font-weight: bold; color: red; font-size: 12px">
                 Vehicle details provided are not correct. Verify and enter again
               </p>
             </div>
             <div class="row text-center" *ngIf="sendOtpFirst">
               <div class="col-md-4"></div>
               <div class="col-md-4 mx-auto">
-              <mat-label>{{ otp }}</mat-label>
+                <mat-label>{{ otp }}</mat-label>
                 <!--<p>{{transform(time)}}</p>-->
-                <mat-form-field
-                  class="w-100 custom-input-field"
-                  appearance="outline"  >
+                <mat-form-field class="w-100 custom-input-field" appearance="outline">
                   <mat-label>Enter OTP</mat-label>
 
-                  <input
-                    matInput
-                    [formControl]="enteredOtp"
-                    name="enteredOtp"
-                    maxlength="4"
-                    minlength="4"
-                  />
+                  <input matInput [formControl]="enteredOtp" name="enteredOtp" maxlength="4" minlength="4" />
                   <!-- <mat-hint
                     style="
                       color: dodgerblue;
@@ -102,41 +59,26 @@
                   > -->
                   <!--                  <mat-error *ngIf="otpNotMatched">OTP mismatched. </mat-error>-->
                 </mat-form-field>
-                <p
-                  *ngIf="otpNotMatched"
-                  style="font-weight: bold; color: red; font-size: 12px"
-                >
+                <p *ngIf="otpNotMatched" style="font-weight: bold; color: red; font-size: 12px">
                   OTP mismatched
                 </p>
                 <br />
                 <div class="row mt-2">
                   <div class="col-md-6">
-                    <button
-                      mat-raised-button
-                      color="primary"
-                      class="my-auto w-100"
-                      type="submit"
-                      (click)="onSubmitOtp(dialogCommon2, dialogCommon)"
-                    >
+                    <button mat-raised-button color="primary" class="my-auto w-100" type="submit"
+                      (click)="onSubmitOtp(dialogCommon2, dialogCommon)">
                       Submit
                     </button>
                   </div>
                   <div class="col-md-6">
-                    <button
-                      mat-raised-button
-                      color="warn"
-                      (click)="onSendOtp()"
-                      class="my-auto w-100"
-                    >
+                    <button mat-raised-button color="warn" (click)="onSendOtp()" class="my-auto w-100">
                       Resend OTP
                     </button>
                   </div>
                 </div>
               </div>
               <div class="col-md-4 mt-4">
-                <p
-                  style="color: dodgerblue; font-size: 12px; font-weight: bold"
-                >
+                <p style="color: dodgerblue; font-size: 12px; font-weight: bold">
                   An OTP is sent to your registered mobile number linked with
                   your RC.
                 </p>
@@ -149,8 +91,7 @@
       <form>
         <mat-card class="mt-2" *ngIf="confirmDetails">
           <p style="font-weight: 500; margin-bottom: 0; color: dodgerblue">
-            Please verify Vehicle Details (<b>{{ vehicleDetails.regnNo }}</b
-            >)
+            Please verify Vehicle Details (<b>{{ vehicleDetails.regnNo }}</b>)
           </p>
           <hr />
           <div class="row">
@@ -160,15 +101,11 @@
                   <mat-label>Owner Name:</mat-label>
                 </div>
                 <div class="col-md-8">
-                  <ngx-skeleton-loader
-                    animation="progress-dark"
-                    appearance="line"
-                    *ngIf="skeletonFlag"
-                    [theme]="{ height: '25px' }"
-                  >
+                  <ngx-skeleton-loader animation="progress-dark" appearance="line" *ngIf="skeletonFlag"
+                    [theme]="{ height: '25px' }">
                   </ngx-skeleton-loader>
                   <mat-label class="common-text" *ngIf="!skeletonFlag">
-                   {{ vehicleDetails.ownerName }}
+                    {{ vehicleDetails.ownerName }}
                   </mat-label>
                 </div>
               </div>
@@ -178,12 +115,8 @@
                   <mat-label>Engine Number:</mat-label>
                 </div>
                 <div class="col-md-8">
-                  <ngx-skeleton-loader
-                    animation="progress-dark"
-                    appearance="line"
-                    *ngIf="skeletonFlag"
-                    [theme]="{ height: '25px' }"
-                  >
+                  <ngx-skeleton-loader animation="progress-dark" appearance="line" *ngIf="skeletonFlag"
+                    [theme]="{ height: '25px' }">
                   </ngx-skeleton-loader>
                   <mat-label class="common-text" *ngIf="!skeletonFlag">
                     {{ vehicleDetails.engNo }}
@@ -195,12 +128,8 @@
                   <mat-label>Chassis Number:</mat-label>
                 </div>
                 <div class="col-md-8">
-                  <ngx-skeleton-loader
-                    animation="progress-dark"
-                    appearance="line"
-                    *ngIf="skeletonFlag"
-                    [theme]="{ height: '25px' }"
-                  >
+                  <ngx-skeleton-loader animation="progress-dark" appearance="line" *ngIf="skeletonFlag"
+                    [theme]="{ height: '25px' }">
                   </ngx-skeleton-loader>
                   <mat-label class="common-text" *ngIf="!skeletonFlag">
                     {{ vehicleDetails.chasiNo }}
@@ -212,12 +141,8 @@
                   <mat-label>Vehicle Class:</mat-label>
                 </div>
                 <div class="col-md-8">
-                  <ngx-skeleton-loader
-                    animation="progress-dark"
-                    appearance="line"
-                    *ngIf="skeletonFlag"
-                    [theme]="{ height: '25px' }"
-                  >
+                  <ngx-skeleton-loader animation="progress-dark" appearance="line" *ngIf="skeletonFlag"
+                    [theme]="{ height: '25px' }">
                   </ngx-skeleton-loader>
                   <mat-label class="common-text" *ngIf="!skeletonFlag">
                     {{ vehicleDetails.vClass }}
@@ -229,12 +154,8 @@
                   <mat-label>Vehicle Make:</mat-label>
                 </div>
                 <div class="col-md-8">
-                  <ngx-skeleton-loader
-                    animation="progress-dark"
-                    appearance="line"
-                    *ngIf="skeletonFlag"
-                    [theme]="{ height: '25px' }"
-                  >
+                  <ngx-skeleton-loader animation="progress-dark" appearance="line" *ngIf="skeletonFlag"
+                    [theme]="{ height: '25px' }">
                   </ngx-skeleton-loader>
                   <mat-label class="common-text" *ngIf="!skeletonFlag">
                     {{ vehicleDetails.vmake }}
@@ -248,12 +169,8 @@
                   <mat-label>Owner Address:</mat-label>
                 </div>
                 <div class="col-md-8">
-                  <ngx-skeleton-loader
-                    animation="progress-dark"
-                    appearance="line"
-                    *ngIf="skeletonFlag"
-                    [theme]="{ height: '25px' }"
-                  >
+                  <ngx-skeleton-loader animation="progress-dark" appearance="line" *ngIf="skeletonFlag"
+                    [theme]="{ height: '25px' }">
                   </ngx-skeleton-loader>
                   <mat-label class="common-text" *ngIf="!skeletonFlag">
                     {{ vehicleDetails.address }}
@@ -266,12 +183,8 @@
                   <mat-label>Vehicle Model:</mat-label>
                 </div>
                 <div class="col-md-8">
-                  <ngx-skeleton-loader
-                    animation="progress-dark"
-                    appearance="line"
-                    *ngIf="skeletonFlag"
-                    [theme]="{ height: '25px' }"
-                  >
+                  <ngx-skeleton-loader animation="progress-dark" appearance="line" *ngIf="skeletonFlag"
+                    [theme]="{ height: '25px' }">
                   </ngx-skeleton-loader>
                   <mat-label class="common-text" *ngIf="!skeletonFlag">
                     {{ vehicleDetails.vmodel }}
@@ -284,12 +197,8 @@
                   <mat-label>Fuel:</mat-label>
                 </div>
                 <div class="col-md-8">
-                  <ngx-skeleton-loader
-                    animation="progress-dark"
-                    appearance="line"
-                    *ngIf="skeletonFlag"
-                    [theme]="{ height: '25px' }"
-                  >
+                  <ngx-skeleton-loader animation="progress-dark" appearance="line" *ngIf="skeletonFlag"
+                    [theme]="{ height: '25px' }">
                   </ngx-skeleton-loader>
                   <mat-label class="common-text" *ngIf="!skeletonFlag">
                     {{ vehicleDetails.fuel }}
@@ -302,12 +211,8 @@
                   <mat-label>Purchase Date:</mat-label>
                 </div>
                 <div class="col-md-8">
-                  <ngx-skeleton-loader
-                    animation="progress-dark"
-                    appearance="line"
-                    *ngIf="skeletonFlag"
-                    [theme]="{ height: '25px' }"
-                  >
+                  <ngx-skeleton-loader animation="progress-dark" appearance="line" *ngIf="skeletonFlag"
+                    [theme]="{ height: '25px' }">
                   </ngx-skeleton-loader>
                   <mat-label class="common-text" *ngIf="!skeletonFlag">
                     {{ vehicleDetails.purchaseDt }}
@@ -319,12 +224,8 @@
                   <mat-label>Registration Date:</mat-label>
                 </div>
                 <div class="col-md-8">
-                  <ngx-skeleton-loader
-                    animation="progress-dark"
-                    appearance="line"
-                    *ngIf="skeletonFlag"
-                    [theme]="{ height: '25px' }"
-                  >
+                  <ngx-skeleton-loader animation="progress-dark" appearance="line" *ngIf="skeletonFlag"
+                    [theme]="{ height: '25px' }">
                   </ngx-skeleton-loader>
                   <mat-label class="common-text" *ngIf="!skeletonFlag">
                     {{ vehicleDetails.regnDt }}
@@ -344,64 +245,42 @@
               <div class="col-md-6">
                 <div class="row mt-2">
                   <div class="col-md-7">
-                    <mat-label
-                      [ngStyle]="{
+                    <mat-label [ngStyle]="{
                         color:
                           oemValidate.minTopSpeed >= 40 ? 'dodgerblue' : 'red'
-                      }"
-                      >Minimum Top Speed(km/hour):</mat-label
-                    >
+                      }">Minimum Top Speed(km/hour):</mat-label>
                   </div>
                   <div class="col-md-5">
-                    <ngx-skeleton-loader
-                      animation="progress-dark"
-                      appearance="line"
-                      *ngIf="skeletonFlag"
-                      [theme]="{ height: '25px' }"
-                    >
+                    <ngx-skeleton-loader animation="progress-dark" appearance="line" *ngIf="skeletonFlag"
+                      [theme]="{ height: '25px' }">
                     </ngx-skeleton-loader>
-                    <mat-label
-                      class="common-text"
-                      [ngStyle]="{
+                    <mat-label class="common-text" [ngStyle]="{
                         color:
                           oemValidate.minTopSpeed >= 40 ? 'dodgerblue' : 'red'
-                      }"
-                      *ngIf="!skeletonFlag"
-                    >
+                      }" *ngIf="!skeletonFlag">
                       {{ oemValidate.minTopSpeed }}
                     </mat-label>
                   </div>
                 </div>
                 <div class="row mt-2">
                   <div class="col-md-7">
-                    <mat-label
-                      [ngStyle]="{
+                    <mat-label [ngStyle]="{
                         color:
                           oemValidate.minAcceleration >= 0.65
                             ? 'dodgerblue'
                             : 'red'
-                      }"
-                      >Minimum Acceleration(m/s^2):</mat-label
-                    >
+                      }">Minimum Acceleration(m/s^2):</mat-label>
                   </div>
                   <div class="col-md-5">
-                    <ngx-skeleton-loader
-                      animation="progress-dark"
-                      appearance="line"
-                      *ngIf="skeletonFlag"
-                      [theme]="{ height: '25px' }"
-                    >
+                    <ngx-skeleton-loader animation="progress-dark" appearance="line" *ngIf="skeletonFlag"
+                      [theme]="{ height: '25px' }">
                     </ngx-skeleton-loader>
-                    <mat-label
-                      class="common-text"
-                      *ngIf="!skeletonFlag"
-                      [ngStyle]="{
+                    <mat-label class="common-text" *ngIf="!skeletonFlag" [ngStyle]="{
                         color:
                           oemValidate.minAcceleration >= 0.65
                             ? 'dodgerblue'
                             : 'red'
-                      }"
-                    >
+                      }">
                       {{ oemValidate.minAcceleration }}
                     </mat-label>
                   </div>
@@ -410,62 +289,40 @@
               <div class="col-md-6">
                 <div class="row mt-2">
                   <div class="col-md-7">
-                    <mat-label
-                      [ngStyle]="{
+                    <mat-label [ngStyle]="{
                         color:
                           oemValidate.maxEnergyConsumption <= 7
                             ? 'dodgerblue'
                             : 'red'
-                      }"
-                      >Maximum Energy Consumption (kWh/100km):</mat-label
-                    >
+                      }">Maximum Energy Consumption (kWh/100km):</mat-label>
                   </div>
                   <div class="col-md-5">
-                    <ngx-skeleton-loader
-                      animation="progress-dark"
-                      appearance="line"
-                      *ngIf="skeletonFlag"
-                      [theme]="{ height: '25px' }"
-                    >
+                    <ngx-skeleton-loader animation="progress-dark" appearance="line" *ngIf="skeletonFlag"
+                      [theme]="{ height: '25px' }">
                     </ngx-skeleton-loader>
-                    <mat-label
-                      class="common-text"
-                      *ngIf="!skeletonFlag"
-                      [ngStyle]="{
+                    <mat-label class="common-text" *ngIf="!skeletonFlag" [ngStyle]="{
                         color:
                           oemValidate.maxEnergyConsumption <= 7
                             ? 'dodgerblue'
                             : 'red'
-                      }"
-                    >
+                      }">
                       {{ oemValidate.maxEnergyConsumption }}
                     </mat-label>
                   </div>
                 </div>
                 <div class="row mt-2">
                   <div class="col-md-7">
-                    <mat-label
-                      [ngStyle]="{
+                    <mat-label [ngStyle]="{
                         color: oemValidate.warranty >= 3 ? 'dodgerblue' : 'red'
-                      }"
-                      >Warranty (Years):</mat-label
-                    >
+                      }">Warranty (Years):</mat-label>
                   </div>
                   <div class="col-md-5">
-                    <ngx-skeleton-loader
-                      animation="progress-dark"
-                      appearance="line"
-                      *ngIf="skeletonFlag"
-                      [theme]="{ height: '25px' }"
-                    >
+                    <ngx-skeleton-loader animation="progress-dark" appearance="line" *ngIf="skeletonFlag"
+                      [theme]="{ height: '25px' }">
                     </ngx-skeleton-loader>
-                    <mat-label
-                      class="common-text"
-                      *ngIf="!skeletonFlag"
-                      [ngStyle]="{
+                    <mat-label class="common-text" *ngIf="!skeletonFlag" [ngStyle]="{
                         color: oemValidate.warranty >= 3 ? 'dodgerblue' : 'red'
-                      }"
-                    >
+                      }">
                       {{ oemValidate.warranty }}
                     </mat-label>
                   </div>
@@ -476,32 +333,22 @@
         </mat-card>
 
         <div class="mt-3" *ngIf="confirmDetailsCheck && oemcheck">
-          <mat-checkbox required color="primary" (change)="changeCheck($event)"
-            >I hereby declare that the information shown in this application is
+          <mat-checkbox required color="primary" (change)="changeCheck($event)">I hereby declare that the information
+            shown in this application is
             true and correct as per my RC to the best of my knowledge and
             belief.
           </mat-checkbox>
           <div class="col-3 mx-auto">
             <div class="row mt-2">
               <div class="col-md-6">
-                <button
-                  mat-raised-button
-                  color="primary"
-                  class="w-100"
-                  [disabled]="disabledAgreement"
-                  (click)="onConfirmDetails(dialogCommon)"
-                >
+                <button mat-raised-button color="primary" class="w-100" [disabled]="disabledAgreement"
+                  (click)="onConfirmDetails(dialogCommon)">
                   Confirm
                 </button>
               </div>
               <div class="col-md-6">
-                <button
-                  mat-raised-button
-                  color="warn"
-                  class="w-100"
-                  (click)="onCancelDetails()"
-                  [disabled]="!disabledAgreement"
-                >
+                <button mat-raised-button color="warn" class="w-100" (click)="onCancelDetails()"
+                  [disabled]="!disabledAgreement">
                   Cancel
                 </button>
               </div>
@@ -519,86 +366,58 @@
 
           <div class="row">
             <div class="col-md-4">
-              <mat-form-field
-                class="w-100 h-10 custom-input-field"
-                appearance="outline"
-              >
+              <!-- oninput="this.value = this.value.toUpperCase()" -->
+              <mat-form-field class="w-100 h-10 custom-input-field" appearance="outline">
                 <mat-label>Bank Name</mat-label>
-                <mat-select
-                  formControlName="bankName"
-                  name="bankName"
-                  oninput="this.value = this.value.toUpperCase()"
-                >
-                  <mat-option
-                    *ngFor="let bank of bankNames"
-                    [value]="bank.name"
-                  >
-                    {{ bank.name }}
+                <mat-select formControlName="bankName" name="bankName" (selectionChange)="onChangeBank($event)">
+                  <mat-option *ngFor="let bank of bankNames; index as i" [value]="bank.bank">
+                    {{ bank.bank }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
               <!-- <button mat-raised-button (click)="onSelectBank()">click</button> -->
-              <mat-form-field
-                class="w-100 h-10 custom-input-field"
-                appearance="outline"
-              >
-                <mat-label>Account Number</mat-label>
-                <input matInput required formControlName="accNo" name="accNo" />
+              <mat-form-field class="w-100 h-10 custom-input-field" appearance="outline">
+                <mat-label>Account Types</mat-label>
+                <mat-select formControlName="accType" name="accType">
+                  <mat-option value="c">Current</mat-option>
+                  <mat-option value="s">Savings</mat-option>
+                </mat-select>
               </mat-form-field>
             </div>
             <div class="col-md-4">
-              <mat-form-field
-                class="w-100 h-10 custom-input-field"
-                appearance="outline"
-              >
+              <mat-form-field class="w-100 h-10 custom-input-field" appearance="outline">
+                <!-- oninput="this.value = this.value.toUpperCase()" -->
                 <mat-label>Branch Name</mat-label>
-                <input
-                  matInput
-                  required
-                  formControlName="branchName"
-                  name="branchName"
-                  oninput="this.value = this.value.toUpperCase()"
-                />
+                <mat-select formControlName="branchName" name="branchName" (selectionChange)="onChangeBranch($event)">
+                  <mat-option [disabled]="branchList.length == 0" *ngFor="let branch of branchList; index as i"
+                    [value]="branch">
+                    {{ branch.branch }}
+                  </mat-option>
+                </mat-select>
               </mat-form-field>
-              <mat-form-field
-                class="w-100 h-10 custom-input-field"
-                appearance="outline"
-              >
-                <mat-label>Account Holder Name</mat-label>
-                <input
-                  matInput
-                  required
-                  formControlName="name"
-                  name="name"
-                  #bankName
-                  oninput="this.value = this.value.toUpperCase()"
-                  (keyup)="checkAccName()"
-                />
-                <!--                <mat-error *ngIf="nameCheck">Please provide same name as in the time of registration you have given.</mat-error>-->
-                <!--                <mat-hint style="color: red; font-weight: 200; font-size: 12px;">Name must be equal to owner name.</mat-hint>-->
+              <mat-form-field class="w-100 h-10 custom-input-field" appearance="outline">
+                <mat-label>Account Number</mat-label>
+                <input matInput required formControlName="accNo" name="accNo" />
               </mat-form-field>
-              <p
-                *ngIf="!nameCheck"
-                style="color: red; font-weight: bold; font-size: 12px"
-              >
+
+              <p *ngIf="!nameCheck" style="color: red; font-weight: bold; font-size: 12px">
                 (Bank Account holder name and vehicle owner name must be same,
                 Please enter correctly.)
               </p>
             </div>
             <div class="col-md-4">
-              <mat-form-field
-                class="w-100 h-10 custom-input-field"
-                appearance="outline"
-              >
+              <!-- oninput="this.value = this.value.toUpperCase()"
+              (keyup)="checkIFSCCode(dialogCommon)" -->
+              <mat-form-field class="w-100 h-10 custom-input-field" appearance="outline">
                 <mat-label>IFSC Code</mat-label>
-                <input
-                  matInput
-                  required
-                  formControlName="ifscCode"
-                  name="ifscCode"
-                  oninput="this.value = this.value.toUpperCase()"
-                  (keyup)="checkIFSCCode(dialogCommon)"
-                />
+                <input matInput [readonly]=true required formControlName="ifscCode" />
+              </mat-form-field>
+              <mat-form-field class="w-100 h-10 custom-input-field" appearance="outline">
+                <mat-label>Account Holder Name</mat-label>
+                <input matInput required formControlName="name" name="name" #bankName
+                  oninput="this.value = this.value.toUpperCase()" (keyup)="checkAccName()" />
+                <!--                <mat-error *ngIf="nameCheck">Please provide same name as in the time of registration you have given.</mat-error>-->
+                <!--                <mat-hint style="color: red; font-weight: 200; font-size: 12px;">Name must be equal to owner name.</mat-hint>-->
               </mat-form-field>
             </div>
           </div>
@@ -607,57 +426,36 @@
             <p>Upload front page of your bank passbook containing your name</p>
 
             <button mat-raised-button color="accent" (click)="upbt.click()">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-upload"
-                viewBox="0 0 16 16"
-              >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload"
+                viewBox="0 0 16 16">
                 <path
-                  d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"
-                />
+                  d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
                 <path
-                  d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"
-                /></svg
-              >&nbsp;Upload
+                  d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z" />
+              </svg>&nbsp;Upload
             </button>
-            <input
-              type="file"
-              hidden
-              #upbt
-              id="file"
-              (change)="upload($event)" accept="image/jpg, image/jpeg, image/png"
-            />&nbsp;
+            <input type="file" hidden #upbt id="file" (change)="upload($event)"
+              accept="image/jpg, image/jpeg, image/png" />&nbsp;
             <mat-label>{{ uploadedFile }}</mat-label>
             <br />
-            <mat-hint style="color: red; font-weight: bold; font-size: 12px"
-              >Upload file size should be less than 200KB (only .jpg, .jpeg and
+            <mat-hint style="color: red; font-weight: bold; font-size: 12px">Upload file size should be less than 200KB
+              (only .jpg, .jpeg and
               .png format only)
             </mat-hint>
           </div>
         </mat-card>
 
-        <div class="mt-3" *ngIf="bankCheck && nameCheck && ifscCheck">
-          <mat-checkbox
-            required
-            color="primary"
-            (change)="changeCheckSubmit($event)"
-            >I hereby declare that the information given in this application is
+        <div class="mt-3" *ngIf="bankCheck && nameCheck">
+          <mat-checkbox required color="primary" (change)="changeCheckSubmit($event)">I hereby declare that the
+            information given in this application is
             true and correct to the best of my knowledge and belief. I also
             undertake that in case any information relating <br />
             to bank account details or any other information furnished by me
             found to be false by the authority, then I shall refund the subsidy.
           </mat-checkbox>
           <div class="col-3 mx-auto mt-2 text-center">
-            <button
-              mat-raised-button
-              color="primary"
-              class="w-50"
-              [disabled]="submitCheck"
-              (click)="onSaveBankDetails(dialogCommon2, dialogCommon)"
-            >
+            <button mat-raised-button color="primary" class="w-50" [disabled]="submitCheck"
+              (click)="onSaveBankDetails(dialogCommon2, dialogCommon)">
               Submit
             </button>
           </div>
@@ -699,11 +497,7 @@
     </p>
   </div>
   <div class="text-center">
-    <button
-      mat-stroked-button
-      color="primary"
-      (click)="closeDialogWithRefresh()"
-    >
+    <button mat-stroked-button color="primary" (click)="closeDialogWithRefresh()">
       Ok
     </button>
   </div>
