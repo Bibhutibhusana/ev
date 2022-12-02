@@ -195,22 +195,24 @@ export class ApproveComponent implements OnInit {
   footerData: any[][] = [];
   @ViewChildren(MatPaginator) paginator = new QueryList<MatPaginator>();
 
-  ngOnInit(): void {
-    this.fetchRevertInfo();
+  ngOnInit(): void {    
     this.username = this.routes.snapshot.params['username'];
     this.off_cd = window.sessionStorage.getItem('off_cd');
+    console.log(this.off_cd)
     this.approvalService
       .getToApproveList(this.off_cd)
       .subscribe((data: any) => {
         (this.dataSource = new MatTableDataSource(data)),
           (this.dataSource.paginator = this.paginator.toArray()[0]);
       });
+      this.fetchRevertInfo();
   }
 
   fetchRevertInfo() {
-    this.verifyService.getAllRevertInfo().subscribe(
+    this.verifyService.getAllRevertInfo(this.off_cd).subscribe(
       (data: any) => {
-        (this.revertDataSource = new MatTableDataSource(data)),
+        console.log(data)
+        this.revertDataSource = new MatTableDataSource(data),
           (this.revertDataSource.paginator = this.paginator.toArray()[2]);
       });
   }
@@ -268,11 +270,20 @@ export class ApproveComponent implements OnInit {
   revertButton(element: any, reverted: any) {
     this.elementObj = element;
     if (this.elementObj.benefBillStatus != null) {
-      this.approvalService.findByErrCode(this.elementObj.benefBillStatus)
+      if (this.elementObj.query  == "q2") {
+        this.approvalService.findByErrCode(this.elementObj.billStatusString)
         .subscribe((data: any) => {
           console.log(data);
           this.revertInfo = data.evErr;
         });
+      }
+      else {
+        this.approvalService.findByErrCode(this.elementObj.benefBillStatus)
+        .subscribe((data: any) => {
+          console.log(data);
+          this.revertInfo = data.evErr;
+        });
+      }
     } else if (this.elementObj.billStatus != null) {
       this.approvalService.findByErrCode(this.elementObj.billStatus)
         .subscribe((data: any) => {

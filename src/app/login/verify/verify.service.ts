@@ -15,8 +15,9 @@ export class VerifyService{
     this.baseURL = this.commonService.getBaseUrl()
    }
 
-   getAllRevertInfo(){
-    return this.http.get(`${this.baseURL}/pendingifmstransactionlist`);
+   getAllRevertInfo(offCd: any){
+    console.log('offCode', offCd)
+    return this.http.post(`${this.baseURL}/pendingifmstransactionlist`, {"offCd": offCd});
    }
 
    saveRevertInfo(id: any, fileRefId: any, billNo: any, billRefNo: any, resFileName: any, applNo: any, regnNo: any, accNo: any, name: any, ifsc: any, submitStatus: any, submitDate: Date, submitErr: any, ackStatus: any, ackDate: Date, ackErr: any, billStatus: any, billStatusErr: any, checkStatus: any, checkStatusErr: any, checkStatusDate: Date, voucherNo: any, voucherDare: Date, billStatusString: any, utrNo: any, utrDate: Date, benfPaymentStatus: any, benefBillStatus: any, ddoCheckStatus: any, ddoCheckStatusDate: Date, revertStatus: any, revertStatusDate: Date, updateDatetime: Date) {

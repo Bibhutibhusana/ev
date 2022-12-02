@@ -1,7 +1,7 @@
 export class BankDetails {
     id!: number;
     bankName!: string;
-    bankType!: string;
+    accType!: string;
     ifscCode!: string;
     branchName!: string;
     address!: string;
@@ -13,4 +13,5 @@ export class BankDetails {
     passbookImg!: string;
     applNo!: string;
     accNo!: string;
+    opDt!: Date;
 }

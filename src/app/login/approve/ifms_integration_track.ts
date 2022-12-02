@@ -64,5 +64,5 @@ export class IFMSIntegrationTrack {
 	
 	ddoCheckStatusDate!: Date;
 	
-	rtoCode!: string;
+	offCd!: string;
 }

@@ -97,6 +97,8 @@ export class RegistrationComponent implements OnInit {
   userStatus: UserStatus = new UserStatus();
 
   resentBtnCheck = true;
+  accountType: any;
+
   changeCheck(event: MatCheckboxChange) {
     this.disabledAgreement = !event.checked;
   }
@@ -143,7 +145,7 @@ export class RegistrationComponent implements OnInit {
       name: [null],
       accNo: [null],
       ifscCode: [null],
-      op_dt: new Date(),
+      opDt: new Date(),
       passbookImg: [null],
     });
   }
@@ -299,12 +301,27 @@ export class RegistrationComponent implements OnInit {
     // this.branchName = this.bankNames.filter(data => data.branch == value.target.value)?.branch;
   }
 
+  openConfirmDialog(confirm: any, element: any) {
+    this.accountType = element;
+    this.dialog.open(confirm);
+    console.log(element)
+  }
+
+
+  confirmOption() {
+    this.dialog.closeAll();
+  }
+
+  cancelDialog() {
+    this.bankDetails.controls['accType'].reset();
+    this.dialog.closeAll();
+  }
+
   onChangeBranch(branch: any) {
     console.log(branch)
-    console.log(this.bankDetails.value.ifscCode)
     console.log(branch.value.ifsc)
+    this.branchName = branch.value.branch
     this.bankDetails.controls["ifscCode"].setValue(branch.value.ifsc);
-    // this.ifscCode = this.bankNames.find(data => data.ifsc == value.target.value)?.ifsc;
   }
 
   uploadFile(event: any) {
@@ -483,6 +500,7 @@ export class RegistrationComponent implements OnInit {
   onSaveBankDetails(dialogCommon2: any, dialogCommon: any) {
     let reg = this.regn_no.value;
     this.bankInfo = this.bankDetails.value;
+    this.bankInfo.branchName = this.branchName;
     console.log(this.bankInfo)
     this.bankInfo.passbookImg = this.passbookImg;
 
@@ -496,6 +514,9 @@ export class RegistrationComponent implements OnInit {
       this._snackBar.open('Please enter IFSC Code', 'Close');
     } else if (this.bankInfo.passbookImg == null) {
       this._snackBar.open('Please Upload Passbook Image', 'Close');
+    }
+    else if (this.bankInfo.accType == null) {
+      this._snackBar.open('Please Select Account Type', 'Close');
     }
     // else{
     //   this.registrationService.checkBankDetailsExist(reg).subscribe((data: any) => {
@@ -572,6 +593,7 @@ export class RegistrationComponent implements OnInit {
               .subscribe((appldata: any) => {
                 (this.applNo = appldata.applNo),
                   (this.bankInfo.applNo = this.applNo);
+                  this.bankInfo.opDt = new Date();
                 this.userStatus = new UserStatus();
                 this.userStatus.regnNo = temp;
                 this.userStatus.applNo = this.applNo;
@@ -606,6 +628,7 @@ export class RegistrationComponent implements OnInit {
               });
           } else {
             this.bankInfo.applNo = data.appl_no;
+            this.bankInfo.opDt = new Date();
             if (data.approval == 'rev' || data.verification == 'rev') {
               this.userStatus.regnNo = this.regn_no.value;
               this.userStatus.applNo = data.appl_no;
@@ -616,6 +639,7 @@ export class RegistrationComponent implements OnInit {
               this.userStatus.sub_amnt = null;
               this.userStatus.opDt = new Date();
               //update status and bank details using single api
+              console.log(this.bankInfo)
               this.registrationService
                 .insertBankAndStatusDetails(this.userStatus, this.bankInfo)
                 .subscribe(
@@ -649,6 +673,7 @@ export class RegistrationComponent implements OnInit {
       this.nameCheck = false;
     }
   }
+
   checkIFSCCode(dialogCommon: any) {
     this.ifscCheck = false;
     if (this.bankDetails.value.ifscCode.length == 11) {

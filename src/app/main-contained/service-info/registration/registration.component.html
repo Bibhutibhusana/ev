@@ -379,8 +379,12 @@
               <mat-form-field class="w-100 h-10 custom-input-field" appearance="outline">
                 <mat-label>Account Types</mat-label>
                 <mat-select formControlName="accType" name="accType">
-                  <mat-option value="c">Current</mat-option>
-                  <mat-option value="s">Savings</mat-option>
+                  <mat-option value="S" (click)="openConfirmDialog(confirm, 'Savings')">Savings</mat-option>
+                  <mat-option value="C" (click)="openConfirmDialog(confirm, 'Current')">Current</mat-option>
+                  <mat-option value="H" (click)="openConfirmDialog(confirm, 'At par Cash Credit')" >At par Cash Credit</mat-option>
+                  <mat-option value="T"(click)="openConfirmDialog(confirm, 'At par Current')">At par Current</mat-option>
+                  <mat-option value="G" (click)="openConfirmDialog(confirm, 'At par Savings')">At par Savings</mat-option>                  
+                  <mat-option value="L" (click)="openConfirmDialog(confirm, 'Loan(Cash Credit')">Loan(Cash Credit)</mat-option>                  
                 </mat-select>
               </mat-form-field>
             </div>
@@ -500,5 +504,23 @@
     <button mat-stroked-button color="primary" (click)="closeDialogWithRefresh()">
       Ok
     </button>
+  </div>
+</ng-template>
+
+<ng-template #confirm>
+  <div class="container">
+    <p class="text-center" style="font-weight: 500; color: dodgerblue">
+    You have selected the account type as
+    </p>
+    <hr />
+  </div>
+  <div class="mat-dialog-content">
+    <p>
+      {{accountType}}
+    </p>
+    <div class="text-center">
+      <button mat-stroked-button color="primary" (click)="confirmOption()">Confirm</button>
+      <button mat-stroked-button color="primary" (click)="cancelDialog()">Cancel</button>
+    </div>
   </div>
 </ng-template>
