@@ -13,7 +13,6 @@ import { ApproveComponent } from './login/approve/approve.component';
 import {DashboardModule} from "./dashboard/dashboard.module";
 import {IntercepterService} from "./loaderService/intercepter.service";
 import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
-import {NgxPrintModule} from 'ngx-print';
 import { DatePipe } from '@angular/common';
 import { AdminComponent } from './login/admin/admin.component';
 import { AmountToWordPipe } from './login/amount-to-word.pipe';
@@ -41,7 +40,6 @@ import { MaterialModule } from './material.module';
     HttpClientModule,
     DashboardModule,
     NgxSkeletonLoaderModule,
-    NgxPrintModule,
     MaterialModule
 
   ],
