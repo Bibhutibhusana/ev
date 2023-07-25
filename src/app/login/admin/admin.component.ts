@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY } from '@angular/cdk/overlay/overlay-directives';
 import { MatPaginator } from '@angular/material/paginator';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormBuilder, FormControl, UntypedFormGroup, Validators} from "@angular/forms";
 // Added By Abinash on 10.05.2022 start 1
 import { RTOClass } from './rto-class';
 import { StatusService } from 'src/app/main-contained/status/status.service';
@@ -35,8 +35,8 @@ export class AdminComponent implements OnInit {
    // Added By Abinash on 10.05.2022 end 2
   reportModel = new ReportModel();
   selectOption!:any;
-  filterForm= new FormGroup({});
-  modelForm=new FormGroup({});
+  filterForm= new UntypedFormGroup({});
+  modelForm=new UntypedFormGroup({});
   dataSourceReport: MatTableDataSource<any> = new MatTableDataSource();
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   dataSourceModel: MatTableDataSource<any> = new MatTableDataSource();
@@ -54,7 +54,7 @@ export class AdminComponent implements OnInit {
   @ViewChildren(MatPaginator) paginator = new QueryList<MatPaginator>();
   @ViewChild('MatPaginator1') MatPaginator1!: MatPaginator;
 
-  constructor(private routes: ActivatedRoute, private adminService: AdminService, private snackBar: MatSnackBar, private statusService: StatusService,private fb: FormBuilder,private router:Router,private registrationService: RegistrationService ) {
+  constructor(private routes: ActivatedRoute, private adminService: AdminService, private snackBar: MatSnackBar, private statusService: StatusService,private fb: UntypedFormBuilder,private router:Router,private registrationService: RegistrationService ) {
    }
 
   ngOnInit(): void {

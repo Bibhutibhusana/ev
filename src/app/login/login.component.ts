@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from "@angular/forms";
+import { UntypedFormControl } from "@angular/forms";
 import { LoginService } from "./login.service";
 import { Router } from "@angular/router";
 
@@ -13,8 +13,8 @@ export class LoginComponent implements OnInit {
   login: boolean = true;
   hide = true;
   errMsg = false;
-  username = new FormControl('');
-  password = new FormControl('');
+  username = new UntypedFormControl('');
+  password = new UntypedFormControl('');
   role!: string;
   off_cd: any;
 

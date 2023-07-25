@@ -16,7 +16,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { UserStatus } from './userStatus';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-verify',
@@ -26,7 +26,7 @@ import { FormControl, Validators } from '@angular/forms';
 export class VerifyComponent implements OnInit {
   username!: string;
   off_cd: any;
-  regn_no = new FormControl('', [
+  regn_no = new UntypedFormControl('', [
     Validators.minLength(9),
     Validators.maxLength(10),
     Validators.required,

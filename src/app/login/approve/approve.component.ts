@@ -18,7 +18,7 @@ import 'jspdf-autotable';
 import { UserStatus } from './userStatus';
 import { VehicleDetails } from './vehicleDetails';
 import { BankDetailsToDelete } from './bankDetails';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DatePipe } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -39,7 +39,7 @@ export class ApproveComponent implements OnInit {
   @ViewChild(MatTableExporterDirective)
   matTableExporter!: MatTableExporterDirective;
   elementObj: any;
-  regn_no = new FormControl('', [
+  regn_no = new UntypedFormControl('', [
     Validators.minLength(9),
     Validators.maxLength(10),
     Validators.required,
@@ -74,7 +74,7 @@ export class ApproveComponent implements OnInit {
 
   approvalDate!: Date;
 
-  appl_no = new FormControl('', [Validators.required]);
+  appl_no = new UntypedFormControl('', [Validators.required]);
 
   rtoName!: any;
 

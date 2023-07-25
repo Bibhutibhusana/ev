@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistrationService } from './registration.service';
 import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 import { OemValidation } from './oemValidation';
@@ -21,12 +21,12 @@ import { IfmsMaster } from './ifms-master';
   styleUrls: ['./registration.component.css'],
 })
 export class RegistrationComponent implements OnInit {
-  regn_no = new FormControl('', [
+  regn_no = new UntypedFormControl('', [
     Validators.minLength(9),
     Validators.maxLength(10),
     Validators.required,
   ]);
-  chasi_no = new FormControl('', [
+  chasi_no = new UntypedFormControl('', [
     Validators.required,
     Validators.minLength(5),
     Validators.maxLength(5),
@@ -50,7 +50,7 @@ export class RegistrationComponent implements OnInit {
   regChasCheck: boolean = true;
   confirmDetailsCheck: boolean = false;
   otp!: string;
-  enteredOtp = new FormControl('', [
+  enteredOtp = new UntypedFormControl('', [
     Validators.maxLength(4),
     Validators.minLength(4),
   ]);
@@ -69,7 +69,7 @@ export class RegistrationComponent implements OnInit {
   name: any;
   ifscCode: any;
 
-  bankDetails = new FormGroup({});
+  bankDetails = new UntypedFormGroup({});
   bankInfo: BankDetails =new BankDetails();
 
   passbookImg: any;
@@ -109,7 +109,7 @@ export class RegistrationComponent implements OnInit {
 
   constructor(
     private registrationService: RegistrationService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private _snackBar: MatSnackBar,
     private dialog: MatDialog
   ) {}

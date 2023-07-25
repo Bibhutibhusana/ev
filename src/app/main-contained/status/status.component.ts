@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
 import {RegistrationService} from "../service-info/registration/registration.service";
 import {StatusService} from "./status.service";
 import {OemValidation} from "../service-info/registration/oemValidation";
@@ -14,24 +14,24 @@ import { MatDialog } from '@angular/material/dialog';
 export class StatusComponent implements OnInit {
   submitted = false;
 
-  appl_no = new FormControl('',[Validators.required]);
-  regn_no = new FormControl('',
+  appl_no = new UntypedFormControl('',[Validators.required]);
+  regn_no = new UntypedFormControl('',
   [Validators.minLength(9), Validators.maxLength(10), Validators.required]);
-chasi_no = new FormControl('',
+chasi_no = new UntypedFormControl('',
   [Validators.required, Validators.minLength(5), Validators.maxLength(5)]);
 
   sendOtpFirst: boolean = false;
   otp !: string;
   applNo !: any;
-  enteredOtp = new FormControl('',
+  enteredOtp = new UntypedFormControl('',
     [Validators.maxLength(4),
       Validators.minLength(4)
     ]);
   otpNotMatched: boolean = false;
   oemValidate = new OemValidation();
   sendOtp: boolean = true;
-  firstFormGroup!: FormGroup;
-  secondFormGroup!: FormGroup;
+  firstFormGroup!: UntypedFormGroup;
+  secondFormGroup!: UntypedFormGroup;
 
   chasiFlag : boolean = true;
   statusTableFlag : boolean =false;
@@ -43,7 +43,7 @@ chasi_no = new FormControl('',
   'Owner Name','Bank Account Number','Application Status','Revert Status'];
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
 
-  constructor(private statusService: StatusService,private _formBuilder: FormBuilder,private dialog: MatDialog) {
+  constructor(private statusService: StatusService,private _formBuilder: UntypedFormBuilder,private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
